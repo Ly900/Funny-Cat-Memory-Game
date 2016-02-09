@@ -1,15 +1,60 @@
 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,600,700,900);
 
-html, body, header {
+html, body, header, div, img, h1 {
   margin: 0;
   border: 0;
   padding: 0;
   box-sizing: border-box;
 }
-
 @mixin prefix($property, $value, $prefixes: ()) {
   @each $prefix in $prefixes {
     #{'-' + $prefix + '-' + $property}: $value;
   }
   #{$property}: $value;
+}
+html {
+  font-size: 20px;
+}
+body {
+  font: {
+    size: 100%;
+    family: "Source Sans Pro", sans-serif;
+    weight: 300;
+  }
+  background: {
+    image: url("../../images/lilly-bg.jpg");
+  }
+}
+/**********************************************
+MEDIA QUERY - SMALL - MOBILE
+**********************************************/
+div.wrapper {
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 1em;
+  max-width: 1000px;
+  height: 500px;
+  background: rgba(255, 255, 255, 0.5);
+}
+/**********************************************
+HEADING
+**********************************************/
+header {
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  h1 {
+    color: white;
+    text-shadow: 2px 2px 10px black;
+    display: inline-block;
+    padding-bottom: .5em;
+    // border: 2px solid orange;
+  }
+  img#cat {
+    width: 3em;
+    margin-top: 1em;
+    vertical-align: bottom;
+    // border: 2px solid blue;
+  }
+  // border: 1px solid red;
 }
