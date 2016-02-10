@@ -22,6 +22,7 @@ $brightBlueColorRGBA: 0, 190, 235;
 $brightBlueColorHex: #00BEEB;
 $deepBlueColorRGBAfull: RGBA(36, 95, 146, 1);
 $deepBlueColorRGBApart: 36, 95, 146;
+$deepBlueColorHEX: #205E94;
 
 html, body, header, div, img, h1, ul, ol, li, {
   margin: 0;
@@ -104,6 +105,12 @@ div#info-game-container {
         li:not(.mode):hover {
           cursor: pointer;
           background-color: RGBA($deepBlueColorRGBApart, .2);
+          color: lighten($deepBlueColorHEX, 10%);
+        }
+        li:not(.mode):active {
+          cursor: pointer;
+          background-color: RGBA($deepBlueColorRGBApart, .5);
+          color: white;
         }
       }
     }
