@@ -23,7 +23,7 @@ $brightBlueColorHex: #00BEEB;
 $deepBlueColorRGBAfull: RGBA(36, 95, 146, 1);
 $deepBlueColorRGBApart: 36, 95, 146;
 
-html, body, header, div, img, h1, ul, li, div.col-sm-4 {
+html, body, header, div, img, h1, ul, ol, li, {
   margin: 0;
   border: 0;
   padding: 0;
@@ -67,7 +67,7 @@ header {
   margin: 0 auto;
   text-align: center;
   h1 {
-    margin-top: .5em;
+    margin-top: .2em;
     letter-spacing: .2em;
     color: $deepBlueColorRGBAfull;
     text-shadow: 2px 2px 3px white;
@@ -89,36 +89,56 @@ header {
 /**********************************************
 GAME SETTINGS
 **********************************************/
-div#game-info-div {
-  margin: 0 auto;
-  width: 100%;
-  // border: 3px solid purple;
-  div.game-info {
-    max-width: 75%;
-    margin: 1em auto;
-    border-radius: .2em;
-    background-color: RGBA(255, 255, 255, .8);
-    // background-color: RGBA(0, 0, 0, .5);
-    // color: white;
-  }
-  ul {
-    list-style: none;
-    li {
-      padding: 0 .2em;
-    }
-    li:first-child {
-      width: 100%;
-      background: RGBA($deepBlueColorRGBApart, .8);
-      color: white;
-      text-shadow: 1px 1px 2px black;
-      text-align: center;
-      padding: .2em;
-      font: {
-        weight: 700;
+div#info-game-container {
+  div#game-info-div {
+    margin: 0 auto;
+    width: 100%;
+    div.game-info {
+      max-width: 75%;
+      margin: 1em auto;
+      background-color: RGBA(255, 255, 255, .8);
+      font-size: .8em;
+      &.game-mode {
+        font-variant: small-caps;
+        text-align: center;
+        li:not(.mode):hover {
+          cursor: pointer;
+          background-color: RGBA($deepBlueColorRGBApart, .2);
+        }
       }
     }
+    ul {
+      list-style-type: none;
+      ol {
+        list-style-position: inside;
+      }
+    }
+    ul {
+      li {
+        padding: 0 .2em;
+      }
+      &>li:first-child {
+        width: 100%;
+        background: RGBA($deepBlueColorRGBApart, .8);
+        color: white;
+        text-shadow: 1px 1px 2px black;
+        text-align: center;
+        padding: .2em;
+        font: {
+          weight: 700;
+          variant: small-caps;
+          size: 1em;
+        }
+      }
+    }
+  } /* Ends div#game-info-div */
+  div#game-cards {
+    margin: 0 auto;
+    width: 95%;
+    height: 500px;
+    background-color: RGBA($deepBlueColorRGBApart, .8);
   }
-}
+} /* Ends div#info-game-container */
 
 /**********************************************
 MEDIA QUERY - MEDIUM > 768px
@@ -129,39 +149,36 @@ MEDIA QUERY - MEDIUM > 768px
     content: "Width of 768px";
     font-size: .3em;
   }
-
   body {
     width: 95%;
     max-width: 1200px;
     margin-top: 1em;
   }
-
   div#info-game-container {
     @include prefix(display, flex, webkit ms);
     @include prefix(display, flexbox, ms);
     @include prefix(display, box, webkit);
     @include prefix(flex-direction, row, webkit);
     div#game-info-div {
-      width: 100%;
+      max-width: 23%;
+      margin-left: .5%;
+      margin-right: .5%;
+      @include prefix(display, flex, webkit ms);
+      @include prefix(display, flexbox, ms);
+      @include prefix(display, box, webkit);
+      @include prefix(flex-direction, column, webkit);
+      @include prefix(justify-content, space-between, webkit);
       div.game-info {
         margin: 1em 0;
-        max-width: 20%;
+        max-width: 100%;
       }
-      div#game-cards {
-        width: 80%;
-        height: 600px;
-        background-color: RGBA($deepBlueColorRGBApart, 1);
-      }
+    }
+    div#game-cards {
+      max-width: 73%;
+      margin: 1%;
     }
   }
 
 
 
 } /* Ends media query for medium screens */
-
-
-// @include prefix(display, flex, webkit ms);
-// @include prefix(display, flexbox, ms);
-// @include prefix(display, box, webkit);
-// @include prefix(flex-direction, column, webkit);
-// @include prefix(justify-content, center, webkit);
