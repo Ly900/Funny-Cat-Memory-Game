@@ -109,15 +109,16 @@ div.info-game-container {
       &.game-mode {
         font-variant: small-caps;
         text-align: center;
-        // .mode:hover {
-        //   cursor: pointer;
-        //   background-color: RGBA($deepBlueColorRGBApart, .2);
-        //   color: lighten($deepBlueColorHEX, 10%);
-        // }
         .mode:active {
           cursor: pointer;
           background-color: RGBA($deepBlueColorRGBApart, .5);
           color: white;
+        }
+      }
+      &.game-directions {
+        li#medium-directions,
+        li#hard-directions {
+          display: none;
         }
       }
     }
@@ -128,7 +129,7 @@ div.info-game-container {
       }
     }
     ul {
-      li {
+      li, p {
         padding: 0 .2em;
       }
       &>li:first-child {

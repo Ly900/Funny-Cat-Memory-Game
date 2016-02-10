@@ -43,9 +43,34 @@ $(document).ready(function() {
     getLi();
   };
 
+  var gameModeChoice = function() {
+    var easyGame = $("li#easy"),
+    mediumGame = $("li#medium"),
+    hardGame = $("li#hard"),
+    defaultP = $("p.default-directions"),
+    mediumLi = $("li#medium-directions");
+    hardLi = $("li#hard-directions");
+    $(easyGame).on("click", function() {
+      $(defaultP).hide();
+      $(mediumLi).hide();
+      $(hardLi).hide();
+    });
+    $(mediumGame).on("click", function() {
+      $(mediumLi).slideDown("slow");
+      $(defaultP).hide();
+      $(hardLi).hide();
+    });
+    $(hardGame).on("click", function() {
+      $(hardLi).slideDown("slow");
+      $(defaultP).hide();
+    })
+  }
+
   /* Initiates hover class for list hovered over */
   hoveredList();
   /* Initiates active class for clicked list */
   clickedList();
+  /* Displays directions based on game mode */
+  gameModeChoice();
 
 });
