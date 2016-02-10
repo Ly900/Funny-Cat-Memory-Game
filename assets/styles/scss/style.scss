@@ -16,10 +16,11 @@ html {
   font-size: 20px;
 }
 body {
+  margin: 0 auto;
   font: {
     size: 100%;
     family: "Source Sans Pro", sans-serif;
-    weight: 300;
+    weight: 400;
   }
   background: {
     image: url("../../images/lilly-bg.jpg");
@@ -31,10 +32,9 @@ MEDIA QUERY - SMALL - MOBILE
 div.wrapper {
   width: 100%;
   margin: 0 auto;
-  margin-top: 1em;
-  max-width: 1000px;
-  height: 500px;
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.4);
+  padding-bottom: 3em;
+  // background: rgba(0, 0, 0, 0.2);
 }
 /**********************************************
 HEADING
@@ -52,9 +52,41 @@ header {
   }
   img#cat {
     width: 3em;
-    margin-top: 1em;
     vertical-align: bottom;
     // border: 2px solid blue;
   }
   // border: 1px solid red;
+}
+/**********************************************
+GAME SETTINGS
+**********************************************/
+div.row {
+  margin: 0 auto;
+}
+div.game-info {
+  max-width: 75%;
+  margin: 1em 1em;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 1em;
+  // padding: 1em;
+}
+/**********************************************
+MEDIA QUERY - LARGE > 1200px
+**********************************************/
+@media (min-width: 1200px) {
+
+  body {
+    width: 95%;
+    max-width: 1200px;
+    margin-top: 1em;
+  }
+
+  div.game-info {
+    max-width: 31%;
+    margin: 0 1%;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 1em;
+    padding: 1em;
+  }
+
 }
