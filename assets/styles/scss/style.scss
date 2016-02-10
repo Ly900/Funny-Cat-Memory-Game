@@ -89,7 +89,7 @@ header {
 /**********************************************
 GAME SETTINGS
 **********************************************/
-div.row {
+div#game-info-div {
   margin: 0 auto;
   width: 100%;
   // border: 3px solid purple;
@@ -136,15 +136,32 @@ MEDIA QUERY - MEDIUM > 768px
     margin-top: 1em;
   }
 
-  div.row {
+  div#info-game-container {
     @include prefix(display, flex, webkit ms);
     @include prefix(display, flexbox, ms);
     @include prefix(display, box, webkit);
-    @include prefix(justify-content, center, webkit);
-    div.game-info {
-      width: 31%;
-      margin: 0 1%;
-      // padding: 1em;
+    @include prefix(flex-direction, row, webkit);
+    div#game-info-div {
+      width: 100%;
+      div.game-info {
+        margin: 1em 0;
+        max-width: 20%;
+      }
+      div#game-cards {
+        width: 80%;
+        height: 600px;
+        background-color: RGBA($deepBlueColorRGBApart, 1);
+      }
     }
   }
+
+
+
 } /* Ends media query for medium screens */
+
+
+// @include prefix(display, flex, webkit ms);
+// @include prefix(display, flexbox, ms);
+// @include prefix(display, box, webkit);
+// @include prefix(flex-direction, column, webkit);
+// @include prefix(justify-content, center, webkit);
