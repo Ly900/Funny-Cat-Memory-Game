@@ -15,6 +15,9 @@ $(document).ready(function() {
       var hoveredLi = $(event.target);
       if (hoveredLi.hasClass("activeLi") === false) {
         $(hoveredLi).addClass("hoverLi");
+        $(hoveredLi).on("mouseleave", function() {
+          $(hoveredLi).removeClass("hoverLi");
+        })
       }
     }
     initHoverEffect();
