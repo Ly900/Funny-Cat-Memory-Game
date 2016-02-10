@@ -1,29 +1,48 @@
+@import url(https://fonts.googleapis.com/css?family=Orbitron:400,500,900,700);
+
 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,600,700,900);
 
-html, body, header, div, img, h1 {
-  margin: 0;
-  border: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 @mixin prefix($property, $value, $prefixes: ()) {
   @each $prefix in $prefixes {
     #{'-' + $prefix + '-' + $property}: $value;
   }
   #{$property}: $value;
 }
+
+// @include prefix(display, flex, webkit ms);
+// @include prefix(display, flexbox, ms);
+// @include prefix(display, box, webkit);
+// @include prefix(flex-direction, column, webkit);
+// @include prefix(justify-content, center, webkit);
+
+/**********************************************
+MAIN CSS
+**********************************************/
+$brightBlueColorRGBA: 0, 190, 235;
+$brightBlueColorHex: #00BEEB;
+$deepBlueColorRGBAfull: RGBA(36, 95, 146, 1);
+$deepBlueColorRGBApart: 36, 95, 146;
+
+html, body, header, div, img, h1, ul, li, div.col-sm-4 {
+  margin: 0;
+  border: 0;
+  padding: 0;
+  box-sizing: border-box;
+  @include prefix(box-sizing, border-box, webkit moz);
+}
 html {
   font-size: 20px;
 }
 body {
   margin: 0 auto;
+  letter-spacing: .05em;
   font: {
     size: 100%;
     family: "Source Sans Pro", sans-serif;
-    weight: 400;
+    weight: 600;
   }
   background: {
-    image: url("../../images/lilly-bg.jpg");
+    image: url("../../images/lilly-lighter-bg.jpg");
   }
 }
 /**********************************************
@@ -32,9 +51,13 @@ MEDIA QUERY - SMALL - MOBILE
 div.wrapper {
   width: 100%;
   margin: 0 auto;
-  background: rgba(255, 255, 255, 0.4);
+  // background: RGBA(255, 255, 255, 0.8);
+  // background: RGBA(149, 121, 109, .5);
   padding-bottom: 3em;
   // background: rgba(0, 0, 0, 0.2);
+}
+div.container-fluid {
+  padding: 0;
 }
 /**********************************************
 HEADING
@@ -44,10 +67,17 @@ header {
   margin: 0 auto;
   text-align: center;
   h1 {
-    color: white;
-    text-shadow: 2px 2px 10px black;
+    margin-top: .5em;
+    letter-spacing: .2em;
+    color: $deepBlueColorRGBAfull;
+    text-shadow: 2px 2px 3px white;
     display: inline-block;
     padding-bottom: .5em;
+    font: {
+      size: 2em;
+      weight: 900;
+      family: "Orbitron", cursive;
+    }
     // border: 2px solid orange;
   }
   img#cat {
@@ -55,25 +85,50 @@ header {
     vertical-align: bottom;
     // border: 2px solid blue;
   }
-  // border: 1px solid red;
 }
 /**********************************************
 GAME SETTINGS
 **********************************************/
 div.row {
   margin: 0 auto;
+  width: 100%;
+  // border: 3px solid purple;
+  div.game-info {
+    max-width: 75%;
+    margin: 1em auto;
+    border-radius: .2em;
+    background-color: RGBA(255, 255, 255, .8);
+    // background-color: RGBA(0, 0, 0, .5);
+    // color: white;
+  }
+  ul {
+    list-style: none;
+    li {
+      padding: 0 .2em;
+    }
+    li:first-child {
+      width: 100%;
+      background: RGBA($deepBlueColorRGBApart, .8);
+      color: white;
+      text-shadow: 1px 1px 2px black;
+      text-align: center;
+      padding: .2em;
+      font: {
+        weight: 700;
+      }
+    }
+  }
 }
-div.game-info {
-  max-width: 75%;
-  margin: 1em 1em;
-  background: rgba(255, 255, 255, 0.4);
-  border-radius: 1em;
-  // padding: 1em;
-}
+
 /**********************************************
-MEDIA QUERY - LARGE > 1200px
+MEDIA QUERY - MEDIUM > 768px
 **********************************************/
-@media (min-width: 1200px) {
+@media (min-width: 768px) {
+
+  h1:before {
+    content: "Width of 768px";
+    font-size: .3em;
+  }
 
   body {
     width: 95%;
@@ -81,12 +136,15 @@ MEDIA QUERY - LARGE > 1200px
     margin-top: 1em;
   }
 
-  div.game-info {
-    max-width: 31%;
-    margin: 0 1%;
-    background: rgba(255, 255, 255, 0.4);
-    border-radius: 1em;
-    padding: 1em;
+  div.row {
+    @include prefix(display, flex, webkit ms);
+    @include prefix(display, flexbox, ms);
+    @include prefix(display, box, webkit);
+    @include prefix(justify-content, center, webkit);
+    div.game-info {
+      width: 31%;
+      margin: 0 1%;
+      // padding: 1em;
+    }
   }
-
-}
+} /* Ends media query for medium screens */
