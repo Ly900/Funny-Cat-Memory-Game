@@ -18,6 +18,9 @@
   <!-- MY CSS -->
   <link rel="stylesheet" href="assets/styles/css/style.css">
 
+  <!-- MY JS -->
+  <script src="app.js"></script>
+
 </head>
 <body>
   <div class="container-fluid">
@@ -33,7 +36,9 @@
         <div id="game-info-div">
           <div class="game-info game-mode">
             <ul>
-              <li class="mode">Mode</li>
+              <li class="mode">
+                <img src="assets/images/settings-icon.png" alt="settings icon" id="settings-icon"/>
+              </li>
               <li>Easy</li>
               <li>Medium</li>
               <li>Hard</li>
@@ -42,11 +47,13 @@
 
           <div class="game-info game-directions">
             <ul>
-              <li>Directions</li>
+              <li>
+                <img src="assets/images/question-mark.png" alt="question mark game directions" id="game-directions"/>
+              </li>
               <li>
                 <ol>
-                  <li>Click two cards at a time to find a match.</li>
-                  <li>Matched cards will stay facing up and unmatched cards will flip back over.</li>
+                  <li>Click two cards to find a match (Matched cards will stay facing up and unmatched cards will flip back over).
+                  </li>
                   <li>Find all pairs to complete the game.</li>
                 </ol>
               </li>
@@ -55,7 +62,9 @@
 
           <div class="game-info game-score">
             <ul>
-              <li>Score</li>
+              <li>
+                <img src="assets/images/star-icon.png" alt="score star" id="star-icon"/>
+              </li>
               <li>Number of Clicks:
                 <span id="clicks"></span>
               </li>

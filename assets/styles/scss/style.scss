@@ -99,6 +99,13 @@ div#info-game-container {
       margin: 1em auto;
       background-color: RGBA(255, 255, 255, .8);
       font-size: .8em;
+      img#settings-icon,
+      img#game-directions {
+        width: 2.5em;
+      }
+      img#star-icon {
+        width: 2em;
+      }
       &.game-mode {
         font-variant: small-caps;
         text-align: center;
@@ -146,7 +153,10 @@ div#info-game-container {
     background-color: RGBA($deepBlueColorRGBApart, .8);
   }
 } /* Ends div#info-game-container */
-
+.activeLi {
+  background-color: RGBA($deepBlueColorRGBApart, .5);
+  color: white;
+}
 /**********************************************
 MEDIA QUERY - MEDIUM > 768px
 **********************************************/
