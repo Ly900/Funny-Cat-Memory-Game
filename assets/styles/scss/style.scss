@@ -90,8 +90,8 @@ header {
 /**********************************************
 GAME SETTINGS
 **********************************************/
-div#info-game-container {
-  div#game-info-div {
+div.info-game-container {
+  div.game-info-div {
     margin: 0 auto;
     width: 100%;
     div.game-info {
@@ -109,12 +109,12 @@ div#info-game-container {
       &.game-mode {
         font-variant: small-caps;
         text-align: center;
-        li:not(.mode):hover {
-          cursor: pointer;
-          background-color: RGBA($deepBlueColorRGBApart, .2);
-          color: lighten($deepBlueColorHEX, 10%);
-        }
-        li:not(.mode):active {
+        // .mode:hover {
+        //   cursor: pointer;
+        //   background-color: RGBA($deepBlueColorRGBApart, .2);
+        //   color: lighten($deepBlueColorHEX, 10%);
+        // }
+        .mode:active {
           cursor: pointer;
           background-color: RGBA($deepBlueColorRGBApart, .5);
           color: white;
@@ -145,17 +145,22 @@ div#info-game-container {
         }
       }
     }
-  } /* Ends div#game-info-div */
+  } /* Ends div.game-info-div */
   div#game-cards {
     margin: 0 auto;
     width: 95%;
     height: 500px;
     background-color: RGBA($deepBlueColorRGBApart, .8);
   }
-} /* Ends div#info-game-container */
+} /* Ends div.info-game-container */
 .activeLi {
   background-color: RGBA($deepBlueColorRGBApart, .5);
   color: white;
+}
+.hoverLi {
+  cursor: pointer;
+  background-color: RGBA($deepBlueColorRGBApart, .2);
+  color: lighten($deepBlueColorHEX, 10%);
 }
 /**********************************************
 MEDIA QUERY - MEDIUM > 768px
@@ -171,12 +176,12 @@ MEDIA QUERY - MEDIUM > 768px
     max-width: 1200px;
     margin-top: 1em;
   }
-  div#info-game-container {
+  div.info-game-container {
     @include prefix(display, flex, webkit ms);
     @include prefix(display, flexbox, ms);
     @include prefix(display, box, webkit);
     @include prefix(flex-direction, row, webkit);
-    div#game-info-div {
+    div.game-info-div {
       max-width: 23%;
       margin-left: .5%;
       margin-right: .5%;
