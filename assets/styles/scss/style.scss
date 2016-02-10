@@ -73,7 +73,7 @@ header {
     color: $deepBlueColorRGBAfull;
     text-shadow: 2px 2px 3px white;
     display: inline-block;
-    padding-bottom: .5em;
+    padding-bottom: .2em;
     font: {
       size: 2em;
       weight: 900;
@@ -96,7 +96,7 @@ div.info-game-container {
     width: 100%;
     div.game-info {
       max-width: 75%;
-      margin: 1em auto;
+      margin: 2% auto;
       background-color: RGBA(255, 255, 255, .8);
       font-size: .8em;
       img#settings-icon,
@@ -190,9 +190,9 @@ MEDIA QUERY - MEDIUM > 768px
       @include prefix(display, flexbox, ms);
       @include prefix(display, box, webkit);
       @include prefix(flex-direction, column, webkit);
-      @include prefix(justify-content, space-between, webkit);
+      @include prefix(justify-content, space-around, webkit);
       div.game-info {
-        margin: 1em 0;
+        margin: 1% 0;
         max-width: 100%;
       }
     }
