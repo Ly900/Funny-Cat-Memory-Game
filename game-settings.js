@@ -50,11 +50,12 @@ $(document).ready(function() {
       easyDir = $("li.easy-dir"),
       mediumDir = $("li#medium-dir"),
       hardDir = $("li#hard-dir");
-    function hideDir(dir1, dir2) {
-      $(dir1, dir2).slideUp(200);
+    function hideDir(dir) {
+      $(dir).slideUp(200);
     };
     $(easyGame).on("click", function() {
-      hideDir(mediumDir, hardDir);
+      hideDir(hardDir);
+      hideDir(mediumDir);
     });
     $(mediumGame).on("click", function() {
       $(mediumDir).slideDown(200);

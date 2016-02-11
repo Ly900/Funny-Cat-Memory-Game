@@ -115,15 +115,17 @@ div.info-game-container {
           color: white;
         }
       }
-      &.game-score {
-        #clicks {
-          color: darken($brightBlueColorHex, 10%);
-        }
-      }
       &.game-directions {
         li#medium-dir,
         li#hard-dir {
           display: none;
+        }
+      }
+      &.game-score {
+        #clicks,
+        #pairs-found,
+        #pairs-left {
+          color: darken($brightBlueColorHex, 10%);
         }
       }
     }
@@ -152,7 +154,7 @@ div.info-game-container {
       }
     }
   } /* Ends div.game-info-div */
-  div#game-cards {
+  div#cards-container {
     margin: 0 auto;
     width: 95%;
     height: 500px;
@@ -168,6 +170,23 @@ div.info-game-container {
   background-color: RGBA($deepBlueColorRGBApart, .2);
   color: lighten($deepBlueColorHEX, 10%);
 }
+
+/**********************************************
+GAME CARDS
+**********************************************/
+div.image-div {
+  width: 49%;
+  height: 100px;
+  margin: .5%;
+  display: inline-block;
+  background-color: RGBA(255, 255, 255, .8);
+  img {
+    border-radius: 5%;
+    width: 100%;
+    max-height: 100%;
+  }
+}
+
 /**********************************************
 MEDIA QUERY - MEDIUM > 768px
 **********************************************/
