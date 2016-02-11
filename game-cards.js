@@ -6,7 +6,7 @@ $(document).ready(function() {
   "assets/images/annoyed-cat.jpg",
   "assets/images/cat-bathing.jpg",
   "assets/images/cat-tongue.jpg",
-  "assets/images/cat-green-ears.jpg",
+  "assets/images/cat-shocked.jpg",
   "assets/images/grumpy-cat.jpg",
   "assets/images/cat-with-glasses.jpg",
   "assets/images/cat-tongue.jpg",
@@ -14,7 +14,7 @@ $(document).ready(function() {
   "assets/images/cat-crosseyed.jpg",
   "assets/images/cat-wig.jpg",
   "assets/images/cat-crosseyed.jpg",
-  "assets/images/cat-green-ears.jpg",
+  "assets/images/cat-shocked.jpg",
   "assets/images/grumpy-cat.jpg",
   "assets/images/cat-with-glasses.jpg"
   ];
@@ -49,13 +49,23 @@ $(document).ready(function() {
     $.each(allCards, createDiv);
     function createDiv(index, value) {
       var imageDiv = $("<div class='image-div'><img></img></div>");
-      // $(imageDiv).find("img").attr("src", value);
+      $(imageDiv).find("img").attr("src", value);
       $(imageDiv).appendTo(cardsContainer);
     };
-      // $("img").hide();
-      // openCard();
+      $(cardsContainer).find("img").hide();
+      openCard();
   };
 
+  function openCard () {
+    $("#cards-container").on("click", function () {
+      console.log(clickCounter);
+      var image = $(event.target).find("img");
+      image.show();
+      clickedCards.push(image);
+      image.click(false);
+      // compareCards();
+    }) // ends onclick on container
+  } // ends openCard function
 
   startGame();
 
