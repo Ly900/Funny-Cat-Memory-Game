@@ -19,7 +19,8 @@
   <link rel="stylesheet" href="assets/styles/css/style.css">
 
   <!-- MY JS -->
-  <script src="app.js"></script>
+  <script src="game-settings.js"></script>
+  <script src="game-cards.js"></script>
 
 </head>
 <body>
@@ -51,17 +52,17 @@
                 <img src="assets/images/question-mark.png" alt="question mark game directions" id="game-directions"/>
               </li>
               <li>
-                <ol id="default-direction">
-                  <li>
+                <ol id="all-dir">
+                  <li class="easy-dir">
                     Click two cards to find a match (Matched cards will stay facing up and unmatched cards will flip back over).
                   </li>
-                  <li>
+                  <li class="easy-dir">
                     Find all pairs to complete the game.
                   </li>
-                  <li id="medium-directions">
+                  <li id="medium-dir">
                     You only have one minute to find all the pairs).
                   </li>
-                  <li id="hard-directions">
+                  <li id="hard-dir">
                     You do not get to view the images for looooong.
                   </li>
                 </ol>

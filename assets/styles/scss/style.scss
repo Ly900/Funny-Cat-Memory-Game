@@ -115,9 +115,14 @@ div.info-game-container {
           color: white;
         }
       }
+      &.game-score {
+        #clicks {
+          color: darken($brightBlueColorHex, 10%);
+        }
+      }
       &.game-directions {
-        li#medium-directions,
-        li#hard-directions {
+        li#medium-dir,
+        li#hard-dir {
           display: none;
         }
       }

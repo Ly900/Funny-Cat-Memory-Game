@@ -45,24 +45,23 @@ $(document).ready(function() {
 
   var gameModeChoice = function() {
     var easyGame = $("li#easy"),
-    mediumGame = $("li#medium"),
-    hardGame = $("li#hard"),
-    defaultP = $("p.default-directions"),
-    mediumLi = $("li#medium-directions");
-    hardLi = $("li#hard-directions");
+      mediumGame = $("li#medium"),
+      hardGame = $("li#hard"),
+      easyDir = $("li.easy-dir"),
+      mediumDir = $("li#medium-dir"),
+      hardDir = $("li#hard-dir");
+    function hideDir(dir1, dir2) {
+      $(dir1, dir2).slideUp(200);
+    };
     $(easyGame).on("click", function() {
-      $(defaultP).hide();
-      $(mediumLi).hide();
-      $(hardLi).hide();
+      hideDir(mediumDir, hardDir);
     });
     $(mediumGame).on("click", function() {
-      $(mediumLi).slideDown("slow");
-      $(defaultP).hide();
-      $(hardLi).hide();
+      $(mediumDir).slideDown(200);
+      hideDir(hardDir);
     });
     $(hardGame).on("click", function() {
-      $(hardLi).slideDown("slow");
-      $(defaultP).hide();
+      $("#all-dir").children().slideDown(200);
     })
   }
 
