@@ -154,12 +154,6 @@ div.info-game-container {
       }
     }
   } /* Ends div.game-info-div */
-  div#cards-container {
-    margin: 0 auto;
-    width: 95%;
-    height: 500px;
-    background-color: RGBA($deepBlueColorRGBApart, .8);
-  }
 } /* Ends div.info-game-container */
 .activeLi {
   background-color: RGBA($deepBlueColorRGBApart, .5);
@@ -174,15 +168,31 @@ div.info-game-container {
 /**********************************************
 GAME CARDS
 **********************************************/
+div#cards-container {
+  margin: 1% auto;
+  margin-top: 5%;
+  width: 95%;
+  text-align: center;
+  background-color: RGBA($deepBlueColorRGBApart, .5);
+}
 div.image-div {
-  width: 49%;
+  width: 23%;
+  max-width: 200px;
   height: 100px;
-  margin: .5%;
+  max-height: 200px;
+  margin: 1%;
   display: inline-block;
+  text-align: center;
   background-color: RGBA(255, 255, 255, .8);
+  box-shadow: 0px 0px 5px darken($deepBlueColorHEX, 10%);
+  text-align: center;
+  @include prefix("border-radius", .5em, webkit moz);
+  &:hover {
+    background-color: RGBA(255, 255, 255, .9);
+  }
   img {
-    border-radius: 5%;
-    width: 100%;
+    @include prefix("border-radius", .5em, webkit moz);
+    max-width: 100%;
     max-height: 100%;
   }
 }
@@ -214,18 +224,35 @@ MEDIA QUERY - MEDIUM > 768px
       @include prefix(display, flexbox, ms);
       @include prefix(display, box, webkit);
       @include prefix(flex-direction, column, webkit);
-      @include prefix(justify-content, space-around, webkit);
+      @include prefix(justify-content, center, webkit);
       div.game-info {
         margin: 1% 0;
         max-width: 100%;
       }
     }
-    div#game-cards {
-      max-width: 73%;
-      margin: 1%;
+    div#cards-container {
+      margin-top: 1%;
+      margin-left: 1%;
+      div#game-cards {
+        max-width: 73%;
+        margin: 1%;
+      }
     }
   }
-
-
-
 } /* Ends media query for medium screens */
+
+
+/**********************************************
+MEDIA QUERY - LARGE > 1116px
+**********************************************/
+@media (min-width: 1116px) {
+
+  h1:before {
+    content: "Width of 1116px";
+    font-size: .3em;
+  }
+  header {
+    text-align: right;
+  }
+
+}

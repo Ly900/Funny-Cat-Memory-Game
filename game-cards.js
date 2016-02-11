@@ -49,7 +49,7 @@ $(document).ready(function() {
     $.each(allCards, createDiv);
     function createDiv(index, value) {
       var imageDiv = $("<div class='image-div'><img></img></div>");
-      $(imageDiv).find("img").attr("src", value);
+      // $(imageDiv).find("img").attr("src", value);
       $(imageDiv).appendTo(cardsContainer);
     };
       // $("img").hide();
