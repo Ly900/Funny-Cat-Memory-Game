@@ -1,4 +1,9 @@
 $(document).ready(function() {
+  "use strict";
+
+
+
+
 
   var allCards = [
   "assets/images/annoyed-cat.jpg",
@@ -24,50 +29,86 @@ $(document).ready(function() {
       return o;
   }
 
+  function setUpReset() {
+    $("#reset").on("click", function () {
+      document.location.reload(true);
+    });
+  }
+
+  function findTotalClicks() {
+    var clickCounter = 0;
+  }
+
   function startGame () {
+    console.log("startGame called");
+    findTotalClicks();
+    var clickCounter = 0,
+        pairsFound = 0,
+        pairsLeft = 8,
+        clickedCards = [];
     shuffle(allCards);
-    clickCounter = 0;
-    pairsFound = 0;
-    pairsLeft = 8;
-    clickedCards = [];
     $("#clicks").html(clickCounter);
     $("#pairs-found").html(pairsFound);
     $("#pairs-left").html(pairsLeft);
-    console.log("Pairs Found = " + pairsFound);
-    console.log("Click Counter = " + clickCounter);
-    console.log(clickedCards);
-    $("#resetButton").on("click", function () {
-      // Reloads page without using the cache.
-      document.location.reload(true);
-    });
-    dealCards();
+
+    // dealCards();
   }
 
-  function dealCards () {
-    console.log("dealCards called");
-    var cardsContainer = $("#cards-container");
-    $.each(allCards, createDiv);
-    function createDiv(index, value) {
-      var imageDiv = $("<div class='image-div'><img></img></div>");
-      $(imageDiv).find("img").attr("src", value);
-      $(imageDiv).appendTo(cardsContainer);
-    };
-      $(cardsContainer).find("img").hide();
-      openCard();
-  };
+  // function dealCards (clickCounter, pairsFound, pairsLeft, clickedCards) {
+  //   console.log("dealCards called");
+  //   var cardsContainer = $("#cards-container");
+  //   $.each(allCards, createDiv);
+  //   function createDiv(index, value) {
+  //     var imageDiv = $("<div class='image-div'><img></img></div>");
+  //     $(imageDiv).find("img").attr("src", value);
+  //     $(imageDiv).appendTo(cardsContainer);
+  //   };
+  //     $(cardsContainer).find("img").hide();
+  //     // $("div.image-div img").hide();
+  //     openCard(clickCounter, pairsFound, pairsLeft, clickedCards);
+  // };
 
-  function openCard () {
-    $("#cards-container").on("click", function () {
-      console.log(clickCounter);
-      var image = $(event.target).find("img");
-      image.show();
-      clickedCards.push(image);
-      image.click(false);
-      // compareCards();
-    }) // ends onclick on container
-  } // ends openCard function
+  // function openCard (clickCounter, pairsFound, pairsLeft, clickedCards) {
+  //   $("#cards-container").on("click", function () {
+  //     clickCounter++;
+  //     $("#clicks").html(clickCounter);
+  //     console.log(clickCounter);
+  //     var image = $(event.target).find("img");
+  //     image.show();
+  //     clickedCards.push(image);
+  //     image.click(false);
+  //     compareCards(clickCounter, pairsFound, pairsLeft, clickedCards);
+  //     console.log(clickedCards);
+  //   }) // ends onclick on container
+  // } // ends openCard function
+
+  // function compareCards (clickCounter, pairsFound, pairsLeft, clickedCards) {
+  //     if (clickCounter % 2 !== 0) {
+  //       console.log(clickedCards);
+  //     card1 = $(clickedCards[0][0]).attr("src");
+  //     card2 = $(clickedCards[1][0]).attr("src");
+  //       if (card1 == card2) {
+  //         console.log("they match");
+  //         clickedCards = [];
+  //         pairsFound++;
+  //         console.log("Pairs Found = " + pairsFound);
+  //         if (pairsFound === 8) {
+  //           alert("You've won the game!")
+  //         } // ends pairsFound
+  //       } // ends if they match
+  //       else {
+  //         console.log("they don't match");
+  //         $(clickedCards[0]).delay(500).fadeOut(100);
+  //         $(clickedCards[1]).delay(500).fadeOut(100);
+  //         clickedCards = [];
+  //       } // ends else for matching
+  //     } //ends if even condition
+  //     // clickCounter++;
+  //
+  //
+  // } // ends compareCards function
 
   startGame();
-
+  setUpReset();
 
 });
