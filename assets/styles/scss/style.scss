@@ -84,20 +84,17 @@ header {
   img#cat {
     width: 3em;
     vertical-align: bottom;
-    animation-name: cat;
-    animation-duration: 3s;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
-    animation-direction: alternate;
-    animation-delay: 1s;
-    // border: 2px solid blue;
+    @include prefix(animation, cat 3s infinite linear alternate, webkit moz ms o);
   }
 }
 
 @keyframes cat {
-  0% {transform: rotate(0deg);}
-  50% {transform: rotate(10deg);}
-  100% {transform: rotate(0deg);}
+  from {
+    transform: rotate(10deg);
+  }
+  to {
+    transform: rotate(-10deg);
+  }
 }
 
 /**********************************************
