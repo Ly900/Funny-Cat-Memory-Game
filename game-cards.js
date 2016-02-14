@@ -56,6 +56,8 @@ $(window).bind("load", function(){
       playerName = prompt("What's your name?");
       if (playerName === "") {
         getPlayerName();
+      } else {
+        return
       }
     }
 
@@ -63,6 +65,7 @@ $(window).bind("load", function(){
       setUpReset();
       shuffle(allCards);
       resetGameScores();
+      getPlayerName();
     }
 
     function clearClickedCards() {
@@ -93,26 +96,24 @@ $(window).bind("load", function(){
 
     function createCards () {
       var cards = "";
-      $.each(allCards, createDiv);
-      function createDiv(index, value) {
+      $.each(allCards, function(index, value) {
         cards += "<div class='image-div'><img src='" + value + "'></img></div>";
-      };
+      });
         $($cardsContainer).append(cards);
         openCard();
-    };
+    }
 
     function openCard () {
-      var $gameCard = $("div.image-div");
-      $($gameCard).on("click", function () {
+      $("body").on("click", "div.image-div", function () {
         var $imageObj = $(event.target).find("img");
-        incrementClicks();
         $($imageObj).show().click(false);
+        incrementClicks();
         updateCounterEl();
         clickedCards.push($imageObj);
         if (clickCounter % 2 === 0) {
           compareCards();
         }
-      })
+      });
     } // ends openCard function
 
     function compareCards() {
@@ -123,7 +124,6 @@ $(window).bind("load", function(){
           card2SRC = $($card2).attr("src");
       if (card1SRC === card2SRC) {
         matchedCards();
-        catSound();
       } else {
         unmatchedCards($card1, $card2);
       } // ends else for matching
@@ -134,35 +134,36 @@ $(window).bind("load", function(){
       clearClickedCards();
       updatePairsFound();
       updatePairsLeft();
-      if (pairsFound === 8) {
+      catSound();
+      if (pairsFound >= 8) {
         $($pairsFound).html("<span class='green'>All of them!<span>");
-        if (clickCounter <= 26) {
-          rank = "an Expert Cat Finder!";
-        } else if (clickCounter < 36) {
-          rank = "a Novice Cat Finder. Try again!";
-        } else {
-          rank = "a Beginner Cat Finder. Try again!";
-        }
-        alert("Great job, " + playerName + "! You've won the game! You're " + rank);
+        getRank();
       }
     } // end cardsMatch
 
     function unmatchedCards($card1, $card2) {
-      console.log("They don't match =\(");
-      $($card1).delay(800).fadeOut(300);
-      $($card2).delay(800).fadeOut(300);
+      console.log("They don't match.");
+      $($card1).add($card2).delay(800).fadeOut(300);
       clearClickedCards();
     } //ends unmatchedCards
 
+    function getRank() {
+      if (clickCounter < 26) {
+        rank = "an Expert Cat Finder!";
+      } else if (clickCounter < 36) {
+        rank = "a Novice Cat Finder. Try again.";
+      } else {
+        rank = "a Beginner Cat Finder. Try again!";
+      }
+      alert("Great job, " + playerName + ". You've won the game!\nRank: " + rank);
+    }
+
     function mediumHard() {
       var mediumGame = $("li#medium"),
-        hardGame = $("li#hard");
+        hardGame = $("li#hard"),
+        $err = $("div.error");
       $(mediumGame).add(hardGame).on("click", function() {
-        var $err = $("div.error");
-        $($err).show();
-        setTimeout(function() {
-          $($err).fadeOut(3000);
-        }, 3000)
+        $($err).show().delay(2000).fadeOut(3000);
       })
 
     }
@@ -178,7 +179,5 @@ $(window).bind("load", function(){
   // Enables the reset button to work
   memoryGame.startGame();
   memoryGame.mediumHard();
-  memoryGame.getPlayerName();
-
 
 });
