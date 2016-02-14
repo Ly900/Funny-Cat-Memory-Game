@@ -132,7 +132,7 @@ div.info-game-container {
         }
       }
       &.game-score {
-        #clicks,
+        #num-clicks,
         #pairs-found,
         #pairs-left {
           color: darken($brightBlueColorHex, 10%);
@@ -207,6 +207,7 @@ div.image-div {
     @include prefix("border-radius", .5em, webkit moz);
     width: 100%;
     height: 100%;
+    display: none;
   }
 }
 

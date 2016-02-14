@@ -1,58 +1,170 @@
 $(document).ready(function() {
   "use strict";
 
+  var memoryGame = (function() {
+    var allCards = [
+    "assets/images/annoyed-cat.jpg",
+    "assets/images/cat-bathing.jpg",
+    "assets/images/annoyed-cat.jpg",
+    "assets/images/cat-bathing.jpg",
+    "assets/images/cat-tongue.jpg",
+    "assets/images/cat-shocked.jpg",
+    "assets/images/grumpy-cat.jpg",
+    "assets/images/cat-with-glasses.jpg",
+    "assets/images/cat-tongue.jpg",
+    "assets/images/cat-wig.jpg",
+    "assets/images/cat-crosseyed.jpg",
+    "assets/images/cat-wig.jpg",
+    "assets/images/cat-crosseyed.jpg",
+    "assets/images/cat-shocked.jpg",
+    "assets/images/grumpy-cat.jpg",
+    "assets/images/cat-with-glasses.jpg"
+    ],
+    resetButton = $("#reset"),
+    clickCounter = 0,
+    pairsFound = 0,
+    pairsLeft = 8,
+    clickedCards = [],
+    $numClicks = $("#num-clicks"),
+    $pairsFound = $("#pairs-found"),
+    $pairsLeft = $("#pairs-left"),
+    $cardsContainer = $("#cards-container");
 
+    function shuffle(array){
+      for(var j, x, i = array.length; i; j = Math.floor(Math.random() * i), x = array[--i], array[i] = array[j], array[j] = x);
+      return array;
+    }
 
+    function setUpReset() {
+      $(resetButton).on("click", function () {
+        document.location.reload(true);
+      });
+    }
 
+    function incrementClicks() {
+      clickCounter++;
+      return clickCounter;
+    }
 
-  var allCards = [
-  "assets/images/annoyed-cat.jpg",
-  "assets/images/cat-bathing.jpg",
-  "assets/images/annoyed-cat.jpg",
-  "assets/images/cat-bathing.jpg",
-  "assets/images/cat-tongue.jpg",
-  "assets/images/cat-shocked.jpg",
-  "assets/images/grumpy-cat.jpg",
-  "assets/images/cat-with-glasses.jpg",
-  "assets/images/cat-tongue.jpg",
-  "assets/images/cat-wig.jpg",
-  "assets/images/cat-crosseyed.jpg",
-  "assets/images/cat-wig.jpg",
-  "assets/images/cat-crosseyed.jpg",
-  "assets/images/cat-shocked.jpg",
-  "assets/images/grumpy-cat.jpg",
-  "assets/images/cat-with-glasses.jpg"
-  ];
+    function updateCounterEl() {
+      $($numClicks).html(clickCounter);
+    }
 
-  function shuffle(o){
-      for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
-      return o;
-  }
+    function startGame () {
+      setUpReset();
+      shuffle(allCards);
+      resetGameScores();
+    }
 
-  function setUpReset() {
-    $("#reset").on("click", function () {
-      document.location.reload(true);
-    });
-  }
+    function resetGameScores() {
+      $($numClicks).html(clickCounter);
+      $($pairsFound).html(pairsFound);
+      $($pairsLeft).html(pairsLeft);
+      createCards();
+    }
 
-  function findTotalClicks() {
-    var clickCounter = 0;
-  }
+    function updatePairsFound() {
+      pairsFound++;
+      $($pairsFound).html(pairsFound);
+    }
 
-  function startGame () {
-    console.log("startGame called");
-    findTotalClicks();
-    var clickCounter = 0,
-        pairsFound = 0,
-        pairsLeft = 8,
+    function updatePairsLeft() {
+      pairsLeft--;
+      $($pairsLeft).html(pairsLeft);
+    }
+
+    function createCards () {
+      var cards = "";
+      $.each(allCards, createDiv);
+      function createDiv(index, value) {
+        cards += "<div class='image-div'><img src='" + value + "'></img></div>";
+      };
+        $($cardsContainer).append(cards);
+        openCard();
+    };
+
+    function openCard () {
+      var $gameCard = $("div.image-div");
+      $($gameCard).on("click", function () {
+        var $imageObj = $(event.target).find("img");
+        incrementClicks();
+        $($imageObj).show().click(false);
+        updateCounterEl();
+        clickedCards.push($imageObj);
+        if (clickCounter % 2 === 0) {
+          compareCards();
+        }
+      })
+    } // ends openCard function
+
+    function compareCards() {
+      // $card1 and $card2 are html img elements
+      var $card1 = clickedCards[0][0],
+          $card2 = clickedCards[1][0],
+          card1SRC = $($card1).attr("src"),
+          card2SRC = $($card2).attr("src");
+      if (card1SRC === card2SRC) {
+        console.log("They match!");
         clickedCards = [];
-    shuffle(allCards);
-    $("#clicks").html(clickCounter);
-    $("#pairs-found").html(pairsFound);
-    $("#pairs-left").html(pairsLeft);
+        updatePairsFound();
+        updatePairsLeft();
+        console.log("Pairs Found = " + pairsFound);
+        if (pairsFound === 8) {
+          alert("You've won the game!")
+        } // ends pairsFound
+      } else {
+        console.log("They don't match =\(");
+        $($card1).delay(800).fadeOut(100);
+        $($card2).delay(800).fadeOut(100);
+        clickedCards = [];
+      } // ends else for matching
+    } // ends compareCards
 
-    // dealCards();
-  }
+    return {
+      startGame: startGame
+    };
+
+
+  })(); // Ends memoryGame module
+
+  // Enables the reset button to work
+  memoryGame.startGame();
+
+
+
+
+
+
+
+  // function shuffle(o){
+  //     for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+  //     return o;
+  // }
+  //
+  // function setUpReset() {
+  //   $("#reset").on("click", function () {
+  //     document.location.reload(true);
+  //   });
+  // }
+  //
+  // function findTotalClicks() {
+  //   var clickCounter = 0;
+  // }
+  //
+  // function startGame () {
+  //   console.log("startGame called");
+  //   findTotalClicks();
+  //   var clickCounter = 0,
+  //       pairsFound = 0,
+  //       pairsLeft = 8,
+  //       clickedCards = [];
+  //   shuffle(allCards);
+  //   $("#clicks").html(clickCounter);
+  //   $("#pairs-found").html(pairsFound);
+  //   $("#pairs-left").html(pairsLeft);
+  //
+  //   // dealCards();
+  // }
 
   // function dealCards (clickCounter, pairsFound, pairsLeft, clickedCards) {
   //   console.log("dealCards called");
@@ -108,7 +220,7 @@ $(document).ready(function() {
   //
   // } // ends compareCards function
 
-  startGame();
-  setUpReset();
+  // startGame();
+  // setUpReset();
 
 });
