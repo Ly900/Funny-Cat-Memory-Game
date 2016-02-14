@@ -140,6 +140,28 @@ div.info-game-container {
         .green {
           color: green;
         }
+        div.reset-button {
+          text-align: center;
+          margin: 0 auto;
+          button {
+            margin: .5em;
+            border: .1em solid $deepBlueColorHEX;
+            background-color: RGBA(255, 255, 255, .8);
+            color: $deepBlueColorHEX;
+            letter-spacing: .2em;
+            &:hover {
+              background: RGBA($deepBlueColorRGBApart, .7);
+            color: white;
+            }
+            &:active {
+            background-color: RGBA($deepBlueColorRGBApart, 1);
+            color: white;
+            }
+          }
+        }
+      }
+      &.game-timer {
+        text-align: center;
       }
     }
     ul {
@@ -177,7 +199,15 @@ div.info-game-container {
   background-color: RGBA($deepBlueColorRGBApart, .2);
   color: lighten($deepBlueColorHEX, 10%);
 }
-
+.error {
+  color: darken(red, 20%);
+  display: none;
+  text-align: center;
+  font: {
+    size: 1em;
+    weight: 700;
+  }
+}
 /**********************************************
 GAME CARDS
 **********************************************/

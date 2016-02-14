@@ -138,8 +138,22 @@ $(document).ready(function() {
       clearClickedCards();
     } //ends unmatchedCards
 
+    function mediumHard() {
+      var mediumGame = $("li#medium"),
+        hardGame = $("li#hard");
+      $(mediumGame).add(hardGame).on("click", function() {
+        var $err = $("div.error");
+        $($err).show();
+        setTimeout(function() {
+          $($err).fadeOut(3000);
+        }, 3000)
+      })
+
+    }
+
     return {
-      startGame: startGame
+      startGame: startGame,
+      mediumHard: mediumHard
     };
 
 
@@ -147,7 +161,7 @@ $(document).ready(function() {
 
   // Enables the reset button to work
   memoryGame.startGame();
-
+  memoryGame.mediumHard();
 
 
 

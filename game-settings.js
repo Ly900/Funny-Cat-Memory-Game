@@ -64,7 +64,11 @@ $(document).ready(function() {
     $(hardGame).on("click", function() {
       $("#all-dir").children().slideDown(200);
     })
-  }
+  };
+
+  var gameTimer = function() {
+    $("#timer").html("0");
+  };
 
   /* Initiates hover class for list hovered over */
   hoveredList();
