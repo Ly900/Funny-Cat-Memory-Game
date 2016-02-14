@@ -56,6 +56,10 @@ $(document).ready(function() {
       resetGameScores();
     }
 
+    function clearClickedCards() {
+      clickedCards = [];
+    }
+
     function resetGameScores() {
       $($numClicks).html(clickCounter);
       $($pairsFound).html(pairsFound);
@@ -71,6 +75,11 @@ $(document).ready(function() {
     function updatePairsLeft() {
       pairsLeft--;
       $($pairsLeft).html(pairsLeft);
+    }
+
+    function catSound() {
+      var $click = $("#sounds");
+      $($click).get(0).play();
     }
 
     function createCards () {
@@ -104,21 +113,30 @@ $(document).ready(function() {
           card1SRC = $($card1).attr("src"),
           card2SRC = $($card2).attr("src");
       if (card1SRC === card2SRC) {
-        console.log("They match!");
-        clickedCards = [];
-        updatePairsFound();
-        updatePairsLeft();
-        console.log("Pairs Found = " + pairsFound);
-        if (pairsFound === 8) {
-          alert("You've won the game!")
-        } // ends pairsFound
+        matchedCards();
+        catSound();
       } else {
-        console.log("They don't match =\(");
-        $($card1).delay(800).fadeOut(100);
-        $($card2).delay(800).fadeOut(100);
-        clickedCards = [];
+        unmatchedCards($card1, $card2);
       } // ends else for matching
     } // ends compareCards
+
+    function matchedCards() {
+      console.log("They match!");
+      clearClickedCards();
+      updatePairsFound();
+      updatePairsLeft();
+      if (pairsFound === 8) {
+        $($pairsFound).html("<span class='green'>All of them!<span>");
+        alert("You've won the game!");
+      }
+    } // end cardsMatch
+
+    function unmatchedCards($card1, $card2) {
+      console.log("They don't match =\(");
+      $($card1).delay(800).fadeOut(300);
+      $($card2).delay(800).fadeOut(300);
+      clearClickedCards();
+    } //ends unmatchedCards
 
     return {
       startGame: startGame

@@ -137,6 +137,9 @@ div.info-game-container {
         #pairs-left {
           color: darken($brightBlueColorHex, 10%);
         }
+        .green {
+          color: green;
+        }
       }
     }
     ul {
@@ -233,10 +236,10 @@ MEDIA QUERY - MEDIUM > 768px
       // border: 2px solid blue;
     }
   }
-  h1:before {
-    content: "Width of 768px";
-    font-size: .3em;
-  }
+  // h1:before {
+  //   content: "Width of 768px";
+  //   font-size: .3em;
+  // }
   body {
     width: 95%;
     max-width: 1200px;
