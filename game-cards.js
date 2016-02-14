@@ -105,8 +105,10 @@ $(window).bind("load", function(){
 
     function openCard () {
       $("body").on("click", "div.image-div", function () {
-        var $imageObj = $(event.target).find("img");
-        $($imageObj).show().click(false);
+        var $imageObj = $(event.target)
+        .find("img")
+        .show()
+        .click(false);
         incrementClicks();
         updateCounterEl();
         clickedCards.push($imageObj);

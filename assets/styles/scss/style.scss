@@ -104,6 +104,28 @@ div.info-game-container {
   div.game-info-div {
     margin: 0 auto;
     width: 100%;
+    ul {
+      list-style-type: none;
+      li, p {
+        padding: 0 .2em;
+      }
+      &>li:first-child {
+        width: 100%;
+        background: RGBA($deepBlueColorRGBApart, .8);
+        color: white;
+        text-shadow: 1px 1px 2px black;
+        text-align: center;
+        padding: .2em;
+        font: {
+          weight: 700;
+          variant: small-caps;
+          size: 1em;
+        }
+      }
+      ol {
+        list-style-position: inside;
+      }
+    } // ends ul styles
     div.game-info {
       max-width: 75%;
       margin: 2% auto;
@@ -129,6 +151,14 @@ div.info-game-container {
         li#medium-dir,
         li#hard-dir {
           display: none;
+        }
+        span.reminders {
+          color: green;
+          display: block;
+          text-align: center;
+          font: {
+            size: .8em;
+          }
         }
       }
       &.game-score {
@@ -158,36 +188,13 @@ div.info-game-container {
             color: white;
             }
           }
-        }
+        } // ends div.reset-button
       }
       &.game-timer {
         text-align: center;
       }
     }
-    ul {
-      list-style-type: none;
-      ol {
-        list-style-position: inside;
-      }
-    }
-    ul {
-      li, p {
-        padding: 0 .2em;
-      }
-      &>li:first-child {
-        width: 100%;
-        background: RGBA($deepBlueColorRGBApart, .8);
-        color: white;
-        text-shadow: 1px 1px 2px black;
-        text-align: center;
-        padding: .2em;
-        font: {
-          weight: 700;
-          variant: small-caps;
-          size: 1em;
-        }
-      }
-    }
+
   } /* Ends div.game-info-div */
 } /* Ends div.info-game-container */
 .activeLi {
