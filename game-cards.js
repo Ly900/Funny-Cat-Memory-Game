@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(window).bind("load", function(){
   "use strict";
 
   var memoryGame = (function() {
@@ -28,7 +28,9 @@ $(document).ready(function() {
     $numClicks = $("#num-clicks"),
     $pairsFound = $("#pairs-found"),
     $pairsLeft = $("#pairs-left"),
-    $cardsContainer = $("#cards-container");
+    $cardsContainer = $("#cards-container"),
+    rank,
+    playerName = "";
 
     function shuffle(array){
       for(var j, x, i = array.length; i; j = Math.floor(Math.random() * i), x = array[--i], array[i] = array[j], array[j] = x);
@@ -48,6 +50,13 @@ $(document).ready(function() {
 
     function updateCounterEl() {
       $($numClicks).html(clickCounter);
+    }
+
+    function getPlayerName() {
+      playerName = prompt("What's your name?");
+      if (playerName === "") {
+        getPlayerName();
+      }
     }
 
     function startGame () {
@@ -127,7 +136,14 @@ $(document).ready(function() {
       updatePairsLeft();
       if (pairsFound === 8) {
         $($pairsFound).html("<span class='green'>All of them!<span>");
-        alert("You've won the game!");
+        if (clickCounter <= 26) {
+          rank = "an Expert Cat Finder!";
+        } else if (clickCounter < 36) {
+          rank = "a Novice Cat Finder. Try again!";
+        } else {
+          rank = "a Beginner Cat Finder. Try again!";
+        }
+        alert("Great job, " + playerName + "! You've won the game! You're " + rank);
       }
     } // end cardsMatch
 
@@ -153,106 +169,16 @@ $(document).ready(function() {
 
     return {
       startGame: startGame,
-      mediumHard: mediumHard
+      mediumHard: mediumHard,
+      getPlayerName: getPlayerName
     };
-
 
   })(); // Ends memoryGame module
 
   // Enables the reset button to work
   memoryGame.startGame();
   memoryGame.mediumHard();
+  memoryGame.getPlayerName();
 
-
-
-
-
-
-  // function shuffle(o){
-  //     for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
-  //     return o;
-  // }
-  //
-  // function setUpReset() {
-  //   $("#reset").on("click", function () {
-  //     document.location.reload(true);
-  //   });
-  // }
-  //
-  // function findTotalClicks() {
-  //   var clickCounter = 0;
-  // }
-  //
-  // function startGame () {
-  //   console.log("startGame called");
-  //   findTotalClicks();
-  //   var clickCounter = 0,
-  //       pairsFound = 0,
-  //       pairsLeft = 8,
-  //       clickedCards = [];
-  //   shuffle(allCards);
-  //   $("#clicks").html(clickCounter);
-  //   $("#pairs-found").html(pairsFound);
-  //   $("#pairs-left").html(pairsLeft);
-  //
-  //   // dealCards();
-  // }
-
-  // function dealCards (clickCounter, pairsFound, pairsLeft, clickedCards) {
-  //   console.log("dealCards called");
-  //   var cardsContainer = $("#cards-container");
-  //   $.each(allCards, createDiv);
-  //   function createDiv(index, value) {
-  //     var imageDiv = $("<div class='image-div'><img></img></div>");
-  //     $(imageDiv).find("img").attr("src", value);
-  //     $(imageDiv).appendTo(cardsContainer);
-  //   };
-  //     $(cardsContainer).find("img").hide();
-  //     // $("div.image-div img").hide();
-  //     openCard(clickCounter, pairsFound, pairsLeft, clickedCards);
-  // };
-
-  // function openCard (clickCounter, pairsFound, pairsLeft, clickedCards) {
-  //   $("#cards-container").on("click", function () {
-  //     clickCounter++;
-  //     $("#clicks").html(clickCounter);
-  //     console.log(clickCounter);
-  //     var image = $(event.target).find("img");
-  //     image.show();
-  //     clickedCards.push(image);
-  //     image.click(false);
-  //     compareCards(clickCounter, pairsFound, pairsLeft, clickedCards);
-  //     console.log(clickedCards);
-  //   }) // ends onclick on container
-  // } // ends openCard function
-
-  // function compareCards (clickCounter, pairsFound, pairsLeft, clickedCards) {
-  //     if (clickCounter % 2 !== 0) {
-  //       console.log(clickedCards);
-  //     card1 = $(clickedCards[0][0]).attr("src");
-  //     card2 = $(clickedCards[1][0]).attr("src");
-  //       if (card1 == card2) {
-  //         console.log("they match");
-  //         clickedCards = [];
-  //         pairsFound++;
-  //         console.log("Pairs Found = " + pairsFound);
-  //         if (pairsFound === 8) {
-  //           alert("You've won the game!")
-  //         } // ends pairsFound
-  //       } // ends if they match
-  //       else {
-  //         console.log("they don't match");
-  //         $(clickedCards[0]).delay(500).fadeOut(100);
-  //         $(clickedCards[1]).delay(500).fadeOut(100);
-  //         clickedCards = [];
-  //       } // ends else for matching
-  //     } //ends if even condition
-  //     // clickCounter++;
-  //
-  //
-  // } // ends compareCards function
-
-  // startGame();
-  // setUpReset();
 
 });
