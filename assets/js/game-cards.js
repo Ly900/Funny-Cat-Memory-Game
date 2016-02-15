@@ -65,7 +65,7 @@ $(window).bind("load", function(){
       setUpReset();
       shuffle(allCards);
       resetGameScores();
-      getPlayerName();
+      // getPlayerName();
     }
 
     function clearClickedCards() {

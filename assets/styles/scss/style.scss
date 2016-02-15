@@ -43,7 +43,9 @@ body {
     weight: 600;
   }
   background: {
+    color: #eee;
     image: url("../../images/lilly-lighter-bg.jpg");
+    size: cover;
   }
 }
 /**********************************************
@@ -333,10 +335,6 @@ MEDIA QUERY - LARGE > 1116px
 **********************************************/
 @media (min-width: 1116px) {
 
-  h1:before {
-    content: "Width of 1116px";
-    font-size: .3em;
-  }
   header {
     text-align: right;
   }
