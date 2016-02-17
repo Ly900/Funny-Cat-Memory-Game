@@ -1,7 +1,11 @@
 $(window).bind("load", function(){
   "use strict";
 
-  var memoryGame = (function() {
+  /******************************************
+  EASY MODE
+  ******************************************/
+
+  var easyMode = (function() {
     var allCards = [
     "assets/images/annoyed-cat.jpg",
     "assets/images/cat-bathing.jpg",
@@ -160,26 +164,43 @@ $(window).bind("load", function(){
       alert("Great job, " + playerName + ". You've won the game!\nRank: " + rank);
     }
 
-    function mediumHard() {
-      var mediumGame = $("li#medium"),
-        hardGame = $("li#hard"),
-        $err = $("div.error");
-      $(mediumGame).add(hardGame).on("click", function() {
-        $($err).show().delay(2000).fadeOut(3000);
-      })
-
-    }
+    // function mediumHard() {
+    //   var mediumGame = $("li#medium"),
+    //     hardGame = $("li#hard"),
+    //     $err = $("div.error");
+    //   $(mediumGame).add(hardGame).on("click", function() {
+    //     $($err).show().delay(2000).fadeOut(3000);
+    //   })
+    // }
 
     return {
-      startGame: startGame,
-      mediumHard: mediumHard,
-      getPlayerName: getPlayerName
+      startGame: startGame
     };
 
   })(); // Ends memoryGame module
 
-  // Enables the reset button to work
-  memoryGame.startGame();
-  memoryGame.mediumHard();
+  /******************************************
+  MEDIUM MODE
+  ******************************************/
 
-});
+  var mediumMode = (function() {
+
+    var mediumButton = $("li#medium");
+
+    function addCards() {
+      $("body").on("click", function() {
+        console.log("ho");
+      });
+    }
+
+    return {
+      addCards: addCards
+    };
+
+
+  })(); // Ends mediumMode
+
+  easyMode.startGame();
+  mediumMode.addCards();
+
+}); // Ends window.bind
