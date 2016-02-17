@@ -174,7 +174,8 @@ $(window).bind("load", function(){
     // }
 
     return {
-      startGame: startGame
+      startGame: startGame,
+      allCards: allCards
     };
 
   })(); // Ends memoryGame module
@@ -184,17 +185,28 @@ $(window).bind("load", function(){
   ******************************************/
 
   var mediumMode = (function() {
-
-    var mediumButton = $("li#medium");
+    var mediumButton = $("li#medium"),
+        mediumCards = [
+          "assets/images/cat-black-wig.jpg",
+          "assets/images/cat-earmuffs.jpg",
+          "assets/images/cat-pizza.jpg",
+          "assets/images/cat-wink.jpg",
+          "assets/images/cat-pizza.jpg",
+          "assets/images/cat-wink.jpg",
+          "assets/images/cat-earmuffs.jpg",
+          "assets/images/cat-black-wig.jpg"
+        ];
 
     function addCards() {
       $("body").on("click", function() {
-        console.log("ho");
+        easyMode.allCards = easyMode.allCards.concat(mediumCards);
+        console.log(easyMode.allCards);
       });
     }
 
     return {
-      addCards: addCards
+      addCards: addCards,
+      mediumCards: mediumCards
     };
 
 
