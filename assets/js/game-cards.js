@@ -33,7 +33,10 @@ $(window).bind("load", function(){
     $pairsFound = $("#pairs-found"),
     $pairsLeft = $("#pairs-left"),
     $cardsContainer = $("#cards-container"),
-    rank;
+    rank,
+    easyGame = $("li#easy"),
+    mediumGame = $("li#medium"),
+    hardGame = $("li#hard")
 
     function shuffle(array){
       for(var j, x, i = array.length; i; j = Math.floor(Math.random() * i), x = array[--i], array[i] = array[j], array[j] = x);
@@ -51,31 +54,26 @@ $(window).bind("load", function(){
       $($numClicks).html(clickCounter);
     }
 
-    function getPlayerName() {
-      playerName = prompt("What's your name?");
-      if (playerName === "") {
-        getPlayerName();
-      } else {
-        return
-      }
+    function startGame () {
+      console.log("clicked");
+      emptyContainer();
+      setUpReset();
+      setEasyGameScores();
+      createCards(allCards);
     }
 
-    function startGame () {
-      setUpReset();
-      shuffle(allCards);
-      resetGameScores();
-      // getPlayerName();
+    function emptyContainer() {
+      $($cardsContainer).empty();
     }
 
     function clearClickedCards() {
       clickedCards = [];
     }
 
-    function resetGameScores() {
+    function setEasyGameScores() {
       $($numClicks).html(clickCounter);
       $($pairsFound).html(pairsFound);
       $($pairsLeft).html(pairsLeft);
-      createCards();
     }
 
     function updatePairsFound() {
@@ -93,9 +91,9 @@ $(window).bind("load", function(){
       $($click).get(0).play();
     }
 
-    function createCards () {
+    function createCards (array) {
       var cards = "";
-      $.each(allCards, function(index, value) {
+      $.each(array, function(index, value) {
         cards += "<div class='image-div'><img src='" + value + "'></img></div>";
       });
         $($cardsContainer).append(cards);
@@ -155,18 +153,24 @@ $(window).bind("load", function(){
       } else {
         rank = "a Beginner Cat Finder. Try again!";
       }
-      alert("Great job, " + playerName + ". You've won the game!\nRank: " + rank);
+      alert("Great job-- you've won the game!\nRank: " + rank);
     }
 
     return {
       startGame: startGame,
       allCards: allCards,
+      easyGame: easyGame,
       shuffle: shuffle,
       $numClicks: $numClicks,
       clickCounter: clickCounter,
       $pairsFound: $pairsFound,
       pairsFound: pairsFound,
-      $pairsLeft: $pairsLeft
+      $pairsLeft: $pairsLeft,
+      createCards: createCards,
+      openCard: openCard,
+      pairsLeft: pairsLeft,
+      $cardsContainer: $cardsContainer,
+      emptyContainer: emptyContainer
     };
 
   })(); // Ends memoryGame module
@@ -180,45 +184,48 @@ $(window).bind("load", function(){
         mediumCards = [
           "assets/images/cat-black-wig.jpg",
           "assets/images/cat-earmuffs.jpg",
-          "assets/images/cat-pizza.jpg",
-          "assets/images/cat-wink.jpg",
-          "assets/images/cat-pizza.jpg",
-          "assets/images/cat-wink.jpg",
+          // "assets/images/cat-pizza.jpg",
+          // "assets/images/cat-wink.jpg",
+          // "assets/images/cat-pizza.jpg",
+          // "assets/images/cat-wink.jpg",
           "assets/images/cat-earmuffs.jpg",
           "assets/images/cat-black-wig.jpg"
         ],
-        pairsLeft = 12;
+        pairsLeft = 10;
 
     function addCards() {
       $(mediumButton).on("click", function() {
-        // document.location.reload(true);
-        easyMode.allCards = easyMode.allCards.concat(mediumCards);
-        $(event.target).unbind("click");
+        mediumCards = mediumCards.concat(easyMode.allCards);
         startGame();
       });
     }
 
     function startGame() {
-      easyMode.shuffle(easyMode.allCards);
-      resetGameScores();
+      easyMode.shuffle(mediumCards);
+      easyMode.emptyContainer();
+      resetMediumGameCards();
+      easyMode.createCards(mediumCards);
+      // easyMode.openCard();
     }
 
-    function resetGameScores() {
-      $(easyMode.$numClicks).html(easyMode.clickCounter);
-      $(easyMode.$pairsFound).html(easyMode.pairsFound);
+    function resetMediumGameCards() {
       $(easyMode.$pairsLeft).html(pairsLeft);
-      // createCards();
     }
 
     return {
       addCards: addCards,
-      mediumCards: mediumCards
+      mediumCards: mediumCards,
+      pairsLeft: pairsLeft
     };
 
 
   })(); // Ends mediumMode
 
-  easyMode.startGame();
+  $(easyMode.easyGame).on("click", function() {
+    easyMode.startGame();
+  });
+
+
   mediumMode.addCards();
 
 }); // Ends window.bind
