@@ -28,11 +28,14 @@ $(window).bind("load", function(){
     $numClicks = $("#num-clicks"),
     $pairsFound = $("#pairs-found"),
     $pairsLeft = $("#pairs-left"),
+    pairsFound = 0,
     resetButton = $("#reset"),
     rank,
     $easyGame = $("li#easy"),
     $mediumGame = $("li#medium"),
-    $hardGame = $("li#hard")
+    $hardGame = $("li#hard"),
+    clickCounter = 0,
+    clickedCards = [];
 
     function emptyContainer() {
       $($cardsContainer).empty();
@@ -49,63 +52,12 @@ $(window).bind("load", function(){
       $pairsFound.html(0);
     }
 
-    return {
-      allCards: allCards,
-      $cardsContainer: $cardsContainer,
-      emptyContainer: emptyContainer,
-      setUpResetButton: setUpResetButton,
-      $easyGame: $easyGame,
-      setGameScores: setGameScores,
-      $pairsLeft: $pairsLeft
-    };
-
-  })();
-
-  /******************************************
-  EASY MODE
-  ******************************************/
-
-  var easyMode = (function() {
-    function shuffle(array){
-      for(var j, x, i = array.length; i; j = Math.floor(Math.random() * i), x = array[--i], array[i] = array[j], array[j] = x);
-      return array;
-    }
-
-    function incrementClicks() {
-      clickCounter++;
-      $(shared.$numClicks).html(clickCounter);
-    }
-
-    function startGame () {
-      shared.setUpResetButton();
-      shared.setGameScores();
-      shared.$pairsLeft.html(8);
-      createCards(shared.allCards);
-    }
-
     function clearClickedCards() {
       clickedCards = [];
     }
 
-    function setEasyGameScores() {
-      $(shared.$numClicks).html(clickCounter);
-      $(shared.$pairsFound).html(pairsFound);
-      $(shared.$pairsLeft).html(pairsLeft);
-    }
-
-    function updatePairsFound() {
-      pairsFound++;
-      $(shared.$pairsFound).html(pairsFound);
-    }
-
-    function updatePairsLeft() {
-      pairsLeft--;
-      $(shared.$pairsLeft).html(pairsLeft);
-    }
-
-    function catSound() {
-      var $click = $("#sounds");
-      $($click).get(0).play();
+    function setPairsLeft(pairsLeft) {
+      $pairsLeft.html(pairsLeft);
     }
 
     function createCards (array) {
@@ -131,6 +83,11 @@ $(window).bind("load", function(){
       });
     } // ends openCard function
 
+    function incrementClicks() {
+      clickCounter++;
+      $($numClicks).html(clickCounter);
+    }
+
     function compareCards() {
       // $card1 and $card2 are html img elements
       var $card1 = clickedCards[0][0],
@@ -141,8 +98,14 @@ $(window).bind("load", function(){
         matchedCards();
       } else {
         unmatchedCards($card1, $card2);
-      } // ends else for matching
+      }
     } // ends compareCards
+
+    function unmatchedCards($card1, $card2) {
+      console.log("They don't match.");
+      $($card1).add($card2).delay(800).fadeOut(300);
+      clearClickedCards();
+    } //ends unmatchedCards
 
     function matchedCards() {
       console.log("They match!");
@@ -156,11 +119,51 @@ $(window).bind("load", function(){
       }
     } // end cardsMatch
 
-    function unmatchedCards($card1, $card2) {
-      console.log("They don't match.");
-      $($card1).add($card2).delay(800).fadeOut(300);
-      clearClickedCards();
-    } //ends unmatchedCards
+    function updatePairsFound() {
+      pairsFound++;
+      $($pairsFound).html(pairsFound);
+    }
+
+    function updatePairsLeft() {
+      pairsLeft--;
+      $($pairsLeft).html(pairsLeft);
+    }
+
+    return {
+      allCards: allCards,
+      $cardsContainer: $cardsContainer,
+      emptyContainer: emptyContainer,
+      setUpResetButton: setUpResetButton,
+      $easyGame: $easyGame,
+      setGameScores: setGameScores,
+      $pairsLeft: $pairsLeft,
+      setPairsLeft: setPairsLeft,
+      createCards: createCards
+    };
+
+  })();
+
+  /******************************************
+  EASY MODE
+  ******************************************/
+
+  var easyMode = (function() {
+    function shuffle(array){
+      for(var j, x, i = array.length; i; j = Math.floor(Math.random() * i), x = array[--i], array[i] = array[j], array[j] = x);
+      return array;
+    }
+
+    function startGame () {
+      shared.setUpResetButton();
+      shared.setGameScores();
+      shared.setPairsLeft(8);
+      shared.createCards(shared.allCards);
+    }
+
+    function catSound() {
+      var $click = $("#sounds");
+      $($click).get(0).play();
+    }
 
     function getRank() {
       if (clickCounter <= 26) {
@@ -176,8 +179,6 @@ $(window).bind("load", function(){
     return {
       startGame: startGame,
       shuffle: shuffle,
-      createCards: createCards,
-      openCard: openCard,
     };
 
   })(); // Ends memoryGame module
