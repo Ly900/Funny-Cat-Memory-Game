@@ -29,6 +29,7 @@ $(window).bind("load", function(){
     $pairsFound = $("#pairs-found"),
     $pairsLeft = $("#pairs-left"),
     pairsFound = 0,
+    pairsLeft,
     resetButton = $("#reset"),
     rank,
     $easyGame = $("li#easy"),
@@ -39,6 +40,11 @@ $(window).bind("load", function(){
 
     function emptyContainer() {
       $($cardsContainer).empty();
+    }
+
+    function shuffle(array){
+      for(var j, x, i = array.length; i; j = Math.floor(Math.random() * i), x = array[--i], array[i] = array[j], array[j] = x);
+      return array;
     }
 
     function setUpResetButton() {
@@ -56,8 +62,9 @@ $(window).bind("load", function(){
       clickedCards = [];
     }
 
-    function setPairsLeft(pairsLeft) {
-      $pairsLeft.html(pairsLeft);
+    function setPairsLeft(setPairsLeft) {
+      $pairsLeft.html(setPairsLeft);
+      pairsLeft = setPairsLeft;
     }
 
     function createCards (array) {
@@ -129,6 +136,11 @@ $(window).bind("load", function(){
       $($pairsLeft).html(pairsLeft);
     }
 
+    function catSound() {
+      var $click = $("#sounds");
+      $($click).get(0).play();
+    }
+
     return {
       allCards: allCards,
       $cardsContainer: $cardsContainer,
@@ -138,7 +150,8 @@ $(window).bind("load", function(){
       setGameScores: setGameScores,
       $pairsLeft: $pairsLeft,
       setPairsLeft: setPairsLeft,
-      createCards: createCards
+      createCards: createCards,
+      shuffle: shuffle
     };
 
   })();
@@ -148,21 +161,13 @@ $(window).bind("load", function(){
   ******************************************/
 
   var easyMode = (function() {
-    function shuffle(array){
-      for(var j, x, i = array.length; i; j = Math.floor(Math.random() * i), x = array[--i], array[i] = array[j], array[j] = x);
-      return array;
-    }
 
     function startGame () {
       shared.setUpResetButton();
       shared.setGameScores();
       shared.setPairsLeft(8);
+      shared.shuffle(shared.allCards);
       shared.createCards(shared.allCards);
-    }
-
-    function catSound() {
-      var $click = $("#sounds");
-      $($click).get(0).play();
     }
 
     function getRank() {
@@ -177,8 +182,7 @@ $(window).bind("load", function(){
     }
 
     return {
-      startGame: startGame,
-      shuffle: shuffle,
+      startGame: startGame
     };
 
   })(); // Ends memoryGame module
