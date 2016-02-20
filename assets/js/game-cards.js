@@ -5,7 +5,7 @@ $(window).bind("load", function(){
   EASY MODE
   ******************************************/
 
-  var easyMode = (function() {
+  var shared = (function() {
     var allCards = [
     "assets/images/annoyed-cat.jpg",
     "assets/images/cat-bathing.jpg",
@@ -23,8 +23,15 @@ $(window).bind("load", function(){
     "assets/images/cat-shocked.jpg",
     "assets/images/grumpy-cat.jpg",
     "assets/images/cat-with-glasses.jpg"
-    ],
-    resetButton = $("#reset"),
+    ]
+
+    return {
+      allCards: allCards
+    };
+  })();
+
+  var easyMode = (function() {
+    var resetButton = $("#reset"),
     clickCounter = 0,
     pairsFound = 0,
     pairsLeft = 8,
@@ -59,7 +66,7 @@ $(window).bind("load", function(){
       emptyContainer();
       setUpReset();
       setEasyGameScores();
-      createCards(allCards);
+      createCards(shared.allCards);
     }
 
     function emptyContainer() {
@@ -158,7 +165,6 @@ $(window).bind("load", function(){
 
     return {
       startGame: startGame,
-      allCards: allCards,
       easyGame: easyGame,
       shuffle: shuffle,
       $numClicks: $numClicks,
@@ -195,12 +201,13 @@ $(window).bind("load", function(){
 
     function addCards() {
       $(mediumButton).on("click", function() {
-        mediumCards = mediumCards.concat(easyMode.allCards);
+        mediumCards = mediumCards.concat(shared.allCards);
         startGame();
       });
     }
 
     function startGame() {
+      easyMode.emptyContainer();
       easyMode.shuffle(mediumCards);
       easyMode.emptyContainer();
       resetMediumGameCards();
@@ -223,6 +230,10 @@ $(window).bind("load", function(){
 
   $(easyMode.easyGame).on("click", function() {
     easyMode.startGame();
+  });
+
+  $(easyMode.mediumGame).on("click", function() {
+    mediumMode.startGame();
   });
 
 
