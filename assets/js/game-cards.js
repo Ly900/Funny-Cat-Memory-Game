@@ -2,7 +2,7 @@ $(window).bind("load", function(){
   "use strict";
 
   /******************************************
-  EASY MODE
+  SHARED
   ******************************************/
 
   var shared = (function() {
@@ -30,28 +30,40 @@ $(window).bind("load", function(){
     $pairsLeft = $("#pairs-left"),
     resetButton = $("#reset"),
     rank,
-    easyGame = $("li#easy"),
-    mediumGame = $("li#medium"),
-    hardGame = $("li#hard")
+    $easyGame = $("li#easy"),
+    $mediumGame = $("li#medium"),
+    $hardGame = $("li#hard")
 
     function emptyContainer() {
       $($cardsContainer).empty();
     }
 
-    function setUpReset() {
+    function setUpResetButton() {
       $(resetButton).on("click", function () {
         document.location.reload(true);
       });
+    }
+
+    function setGameScores() {
+      $numClicks.html(0);
+      $pairsFound.html(0);
     }
 
     return {
       allCards: allCards,
       $cardsContainer: $cardsContainer,
       emptyContainer: emptyContainer,
-      setUpReset: setUpReset
+      setUpResetButton: setUpResetButton,
+      $easyGame: $easyGame,
+      setGameScores: setGameScores,
+      $pairsLeft: $pairsLeft
     };
 
   })();
+
+  /******************************************
+  EASY MODE
+  ******************************************/
 
   var easyMode = (function() {
     function shuffle(array){
@@ -65,8 +77,9 @@ $(window).bind("load", function(){
     }
 
     function startGame () {
-      shared.setUpReset();
-      setEasyGameScores();
+      shared.setUpResetButton();
+      shared.setGameScores();
+      shared.$pairsLeft.html(8);
       createCards(shared.allCards);
     }
 
@@ -214,13 +227,14 @@ $(window).bind("load", function(){
 
   })(); // Ends mediumMode
 
-  $(shared.easyGame).on("click", function() {
-    shared.emptyContainer;
+  $(shared.$easyGame).on("click", function() {
+    console.log("easy clicked");
+    shared.emptyContainer();
     easyMode.startGame();
   });
 
   $(shared.mediumGame).on("click", function() {
-    shared.emptyContainer;
+    shared.emptyContainer();
     mediumMode.startGame();
   });
 
