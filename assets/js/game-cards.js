@@ -24,36 +24,18 @@ $(window).bind("load", function(){
     "assets/images/grumpy-cat.jpg",
     "assets/images/cat-with-glasses.jpg"
     ],
-    $cardsContainer = $("#cards-container");
-
-    function emptyContainer() {
-      $($cardsContainer).empty();
-    }
-
-    return {
-      allCards: allCards,
-      $cardsContainer: $cardsContainer,
-      emptyContainer: emptyContainer
-    };
-  })();
-
-  var easyMode = (function() {
-    var resetButton = $("#reset"),
-    clickCounter = 0,
-    pairsFound = 0,
-    pairsLeft = 8,
-    clickedCards = [],
+    $cardsContainer = $("#cards-container"),
     $numClicks = $("#num-clicks"),
     $pairsFound = $("#pairs-found"),
     $pairsLeft = $("#pairs-left"),
+    resetButton = $("#reset"),
     rank,
     easyGame = $("li#easy"),
     mediumGame = $("li#medium"),
     hardGame = $("li#hard")
 
-    function shuffle(array){
-      for(var j, x, i = array.length; i; j = Math.floor(Math.random() * i), x = array[--i], array[i] = array[j], array[j] = x);
-      return array;
+    function emptyContainer() {
+      $($cardsContainer).empty();
     }
 
     function setUpReset() {
@@ -62,14 +44,28 @@ $(window).bind("load", function(){
       });
     }
 
+    return {
+      allCards: allCards,
+      $cardsContainer: $cardsContainer,
+      emptyContainer: emptyContainer,
+      setUpReset: setUpReset
+    };
+
+  })();
+
+  var easyMode = (function() {
+    function shuffle(array){
+      for(var j, x, i = array.length; i; j = Math.floor(Math.random() * i), x = array[--i], array[i] = array[j], array[j] = x);
+      return array;
+    }
+
     function incrementClicks() {
       clickCounter++;
-      $($numClicks).html(clickCounter);
+      $(shared.$numClicks).html(clickCounter);
     }
 
     function startGame () {
-      shared.emptyContainer();
-      setUpReset();
+      shared.setUpReset();
       setEasyGameScores();
       createCards(shared.allCards);
     }
@@ -79,19 +75,19 @@ $(window).bind("load", function(){
     }
 
     function setEasyGameScores() {
-      $($numClicks).html(clickCounter);
-      $($pairsFound).html(pairsFound);
-      $($pairsLeft).html(pairsLeft);
+      $(shared.$numClicks).html(clickCounter);
+      $(shared.$pairsFound).html(pairsFound);
+      $(shared.$pairsLeft).html(pairsLeft);
     }
 
     function updatePairsFound() {
       pairsFound++;
-      $($pairsFound).html(pairsFound);
+      $(shared.$pairsFound).html(pairsFound);
     }
 
     function updatePairsLeft() {
       pairsLeft--;
-      $($pairsLeft).html(pairsLeft);
+      $(shared.$pairsLeft).html(pairsLeft);
     }
 
     function catSound() {
@@ -142,7 +138,7 @@ $(window).bind("load", function(){
       updatePairsLeft();
       catSound();
       if (pairsFound >= 8) {
-        $($pairsFound).html("<span class='green'>All of them!<span>");
+        $(shared.$pairsFound).html("<span class='green'>All of them!<span>");
         getRank();
       }
     } // end cardsMatch
@@ -166,16 +162,9 @@ $(window).bind("load", function(){
 
     return {
       startGame: startGame,
-      easyGame: easyGame,
       shuffle: shuffle,
-      $numClicks: $numClicks,
-      clickCounter: clickCounter,
-      $pairsFound: $pairsFound,
-      pairsFound: pairsFound,
-      $pairsLeft: $pairsLeft,
       createCards: createCards,
       openCard: openCard,
-      pairsLeft: pairsLeft
     };
 
   })(); // Ends memoryGame module
@@ -206,9 +195,7 @@ $(window).bind("load", function(){
     }
 
     function startGame() {
-      easyMode.emptyContainer();
       easyMode.shuffle(mediumCards);
-      easyMode.emptyContainer();
       resetMediumGameCards();
       easyMode.createCards(mediumCards);
       // easyMode.openCard();
@@ -227,15 +214,14 @@ $(window).bind("load", function(){
 
   })(); // Ends mediumMode
 
-  $(easyMode.easyGame).on("click", function() {
+  $(shared.easyGame).on("click", function() {
+    shared.emptyContainer;
     easyMode.startGame();
   });
 
-  $(easyMode.mediumGame).on("click", function() {
+  $(shared.mediumGame).on("click", function() {
+    shared.emptyContainer;
     mediumMode.startGame();
   });
-
-
-  mediumMode.addCards();
 
 }); // Ends window.bind
