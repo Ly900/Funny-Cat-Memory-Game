@@ -23,10 +23,17 @@ $(window).bind("load", function(){
     "assets/images/cat-shocked.jpg",
     "assets/images/grumpy-cat.jpg",
     "assets/images/cat-with-glasses.jpg"
-    ]
+    ],
+    $cardsContainer = $("#cards-container");
+
+    function emptyContainer() {
+      $($cardsContainer).empty();
+    }
 
     return {
-      allCards: allCards
+      allCards: allCards,
+      $cardsContainer: $cardsContainer,
+      emptyContainer: emptyContainer
     };
   })();
 
@@ -39,7 +46,6 @@ $(window).bind("load", function(){
     $numClicks = $("#num-clicks"),
     $pairsFound = $("#pairs-found"),
     $pairsLeft = $("#pairs-left"),
-    $cardsContainer = $("#cards-container"),
     rank,
     easyGame = $("li#easy"),
     mediumGame = $("li#medium"),
@@ -62,15 +68,10 @@ $(window).bind("load", function(){
     }
 
     function startGame () {
-      console.log("clicked");
-      emptyContainer();
+      shared.emptyContainer();
       setUpReset();
       setEasyGameScores();
       createCards(shared.allCards);
-    }
-
-    function emptyContainer() {
-      $($cardsContainer).empty();
     }
 
     function clearClickedCards() {
@@ -103,7 +104,7 @@ $(window).bind("load", function(){
       $.each(array, function(index, value) {
         cards += "<div class='image-div'><img src='" + value + "'></img></div>";
       });
-        $($cardsContainer).append(cards);
+        $(shared.$cardsContainer).append(cards);
         openCard();
     }
 
@@ -174,9 +175,7 @@ $(window).bind("load", function(){
       $pairsLeft: $pairsLeft,
       createCards: createCards,
       openCard: openCard,
-      pairsLeft: pairsLeft,
-      $cardsContainer: $cardsContainer,
-      emptyContainer: emptyContainer
+      pairsLeft: pairsLeft
     };
 
   })(); // Ends memoryGame module
