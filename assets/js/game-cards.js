@@ -36,7 +36,8 @@ $(window).bind("load", function(){
     $mediumGame = $("li#medium"),
     $hardGame = $("li#hard"),
     clickCounter = 0,
-    clickedCards = [];
+    clickedCards = [],
+    gameMode;
 
     function emptyContainer() {
       $($cardsContainer).empty();
@@ -51,6 +52,23 @@ $(window).bind("load", function(){
       $(resetButton).on("click", function () {
         document.location.reload(true);
       });
+    }
+
+    function setGameMode(mode) {
+      gameMode = mode;
+      switch (gameMode) {
+        case "easy":
+          console.log("Easy game chosen.");
+          console.log(gameMode);
+        break;
+        case "medium":
+          console.log("Medium game chosen.");
+        break;
+        case "hard":
+          console.log("Hard game chosen.");
+        break;
+      }
+
     }
 
     function setGameScores() {
@@ -120,10 +138,7 @@ $(window).bind("load", function(){
       updatePairsFound();
       updatePairsLeft();
       catSound();
-      if (pairsFound >= 8) {
-        $(shared.$pairsFound).html("<span class='green'>All of them!<span>");
-        getRank();
-      }
+      checkforWin();
     } // end cardsMatch
 
     function updatePairsFound() {
@@ -141,6 +156,36 @@ $(window).bind("load", function(){
       $($click).get(0).play();
     }
 
+    function checkforWin() {
+      console.log(gameMode + " checking for win");
+      switch (gameMode) {
+        case "easy":
+          if (pairsFound >= 8) {
+            $($pairsFound).html("<span class='green'>All of them!<span>");
+            getRank(gameMode);
+          }
+        break;
+      }
+    }
+
+    function getRank() {
+      switch (gameMode) {
+        case "easy":
+          if (clickCounter <= 26) {
+            rank = "an Expert Cat Finder!";
+          } else if (clickCounter < 36) {
+            rank = "a Novice Cat Finder. Try again.";
+          } else {
+            rank = "a Beginner Cat Finder. Try again!";
+          }
+          alert("Great job-- you've won the game!\nRank: " + rank);
+        break;
+        case "medium":
+        console.log("Medium rankings");
+        break;
+      }
+    } // Ends getRank()
+
     return {
       allCards: allCards,
       $cardsContainer: $cardsContainer,
@@ -151,7 +196,8 @@ $(window).bind("load", function(){
       $pairsLeft: $pairsLeft,
       setPairsLeft: setPairsLeft,
       createCards: createCards,
-      shuffle: shuffle
+      shuffle: shuffle,
+      setGameMode: setGameMode
     };
 
   })();
@@ -168,17 +214,7 @@ $(window).bind("load", function(){
       shared.setPairsLeft(8);
       shared.shuffle(shared.allCards);
       shared.createCards(shared.allCards);
-    }
-
-    function getRank() {
-      if (clickCounter <= 26) {
-        rank = "an Expert Cat Finder!";
-      } else if (clickCounter < 36) {
-        rank = "a Novice Cat Finder. Try again.";
-      } else {
-        rank = "a Beginner Cat Finder. Try again!";
-      }
-      alert("Great job-- you've won the game!\nRank: " + rank);
+      shared.setGameMode("easy");
     }
 
     return {
