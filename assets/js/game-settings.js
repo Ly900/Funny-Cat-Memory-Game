@@ -1,5 +1,9 @@
 $(document).ready(function() {
 
+  var chooseGameMode = $("<div class='choose-mode'>Choose your game mode.</div>");
+
+  $("#cards-container").append(chooseGameMode);
+
   var gameModeUl = $("#game-mode"),
       liMode = gameModeUl.children(".mode");
 

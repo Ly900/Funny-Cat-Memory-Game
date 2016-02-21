@@ -209,7 +209,6 @@ $(window).bind("load", function(){
   var easyMode = (function() {
 
     function startGame () {
-      shared.setUpResetButton();
       shared.setGameScores();
       shared.setPairsLeft(8);
       shared.shuffle(shared.allCards);
@@ -267,6 +266,8 @@ $(window).bind("load", function(){
 
 
   })(); // Ends mediumMode
+
+  shared.setUpResetButton();
 
   $(shared.$easyGame).on("click", function() {
     console.log("easy clicked");

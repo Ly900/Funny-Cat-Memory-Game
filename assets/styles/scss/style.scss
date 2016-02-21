@@ -226,6 +226,25 @@ div#cards-container {
   width: 95%;
   text-align: center;
   background-color: RGBA($deepBlueColorRGBApart, .5);
+  // @include prefix(display, flex, webkit ms);
+  // @include prefix(display, flexbox, ms);
+  // @include prefix(display, box, webkit);
+  // @include prefix(align-items, center, webkit);
+  .choose-mode {
+    margin: 0 auto;
+    color: white;
+    font-size: 3em;
+    text-shadow: 1px 1px 5px black;
+    @include prefix(animation, appear 3s infinite linear alternate, webkit moz ms o);
+  }
+  @keyframes appear {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 }
 div.image-div {
   width: 23%;
