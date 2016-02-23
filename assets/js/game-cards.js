@@ -28,14 +28,17 @@ $(window).bind("load", function(){
     $numClicks = $("#num-clicks"),
     $pairsFound = $("#pairs-found"),
     $pairsLeft = $("#pairs-left"),
-    pairsFound = 0,
-    pairsLeft,
-    resetButton = $("#reset"),
-    rank,
     $easyGame = $("li#easy"),
     $mediumGame = $("li#medium"),
     $hardGame = $("li#hard"),
-    clickCounter = 0,
+    resetButton = $("#reset"),
+    rank;
+    // pairsFound = 0,
+    this.pairsFound = 0;
+    this.pairsLeft = 0;
+    this.clickCounter = 0;
+    // clickCounter = 0,
+    // clickCounter,
     clickedCards = [],
     gameMode;
 
@@ -71,18 +74,24 @@ $(window).bind("load", function(){
 
     }
 
-    function setGameScores() {
-      $numClicks.html(0);
-      $pairsFound.html(0);
+    function resetGameScores() {
+      clickCounter = 0;
+      $numClicks.html(clickCounter);
+      console.log("Click Counter: " + clickCounter);
+      pairsFound = 0;
+      $pairsFound.html(pairsFound);
+      console.log("Pairs Found: " + pairsFound);
     }
 
     function clearClickedCards() {
       clickedCards = [];
+      console.log("Clicked Cards Array Length: " + clickedCards.length)
     }
 
     function setPairsLeft(setPairsLeft) {
-      $pairsLeft.html(setPairsLeft);
       pairsLeft = setPairsLeft;
+      $pairsLeft.html(setPairsLeft);
+      console.log("Pairs left: " + pairsLeft);
     }
 
     function createCards (array) {
@@ -90,8 +99,9 @@ $(window).bind("load", function(){
       $.each(array, function(index, value) {
         cards += "<div class='image-div'><img src='" + value + "'></img></div>";
       });
-        $(shared.$cardsContainer).append(cards);
-        openCard();
+        $($cardsContainer).append(cards);
+        console.log("Click Counter: " + shared.clickCounter);
+        // openCard();
     }
 
     function openCard () {
@@ -101,6 +111,10 @@ $(window).bind("load", function(){
         .show()
         .click(false);
         incrementClicks();
+        console.log("Click Counter: " + clickCounter);
+        console.log("Pairs found: " + pairsFound);
+        console.log("Pairs left: " + pairsLeft);
+        console.log("Clicked Cards Array Length: " + clickedCards.length);
         clickedCards.push($imageObj);
         if (clickCounter % 2 === 0) {
           compareCards();
@@ -138,7 +152,7 @@ $(window).bind("load", function(){
       updatePairsFound();
       updatePairsLeft();
       catSound();
-      checkforWin();
+      // checkforWin();
     } // end cardsMatch
 
     function updatePairsFound() {
@@ -156,17 +170,17 @@ $(window).bind("load", function(){
       $($click).get(0).play();
     }
 
-    function checkforWin() {
-      console.log(gameMode + " checking for win");
-      switch (gameMode) {
-        case "easy":
-          if (pairsFound >= 8) {
-            $($pairsFound).html("<span class='green'>All of them!<span>");
-            getRank(gameMode);
-          }
-        break;
-      }
-    }
+    // function checkforWin() {
+    //   console.log(gameMode + " checking for win");
+    //   switch (gameMode) {
+    //     case "easy":
+    //       if (pairsFound >= 8) {
+    //         $($pairsFound).html("<span class='green'>All of them!<span>");
+    //         // getRank(gameMode);
+    //       }
+    //     break;
+    //   }
+    // }
 
     function getRank() {
       switch (gameMode) {
@@ -189,15 +203,17 @@ $(window).bind("load", function(){
     return {
       allCards: allCards,
       $cardsContainer: $cardsContainer,
+      clickCounter: clickCounter,
       emptyContainer: emptyContainer,
       setUpResetButton: setUpResetButton,
       $easyGame: $easyGame,
-      setGameScores: setGameScores,
+      resetGameScores: resetGameScores,
       $pairsLeft: $pairsLeft,
       setPairsLeft: setPairsLeft,
       createCards: createCards,
       shuffle: shuffle,
-      setGameMode: setGameMode
+      setGameMode: setGameMode,
+      clearClickedCards: clearClickedCards
     };
 
   })();
@@ -209,11 +225,24 @@ $(window).bind("load", function(){
   var easyMode = (function() {
 
     function startGame () {
-      shared.setGameScores();
-      shared.setPairsLeft(8);
-      shared.shuffle(shared.allCards);
+      // shared.emptyContainer();
+      // shared.resetGameScores();
+      shared.clickCounter = "hi";
+      console.log("clickCounter: " + shared.clickCounter);
+      // shared.clearClickedCards();
+      shared.clickedCards = [];
+      console.log("clickedCards: " + shared.clickedCards.length);
+
+      shared.pairsFound = 0;
+      console.log("Pairs Found: " + shared.pairsFound);
+      // shared.setPairsLeft(8);
+      shared.pairsLeft = 8;
+      shared.$pairsLeft.html(shared.pairsLeft);
+      console.log("Pairs Left: " + shared.pairsLeft);
+
+      // shared.shuffle(shared.allCards);
       shared.createCards(shared.allCards);
-      shared.setGameMode("easy");
+      // shared.setGameMode("easy");
     }
 
     return {
@@ -271,7 +300,6 @@ $(window).bind("load", function(){
 
   $(shared.$easyGame).on("click", function() {
     console.log("easy clicked");
-    shared.emptyContainer();
     easyMode.startGame();
   });
 
