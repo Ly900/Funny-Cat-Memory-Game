@@ -38,7 +38,7 @@ $(window).bind("load", function(){
     }
 
     function setUpReset() {
-      $(resetButton).on("click", function () {
+      $(resetButton).on("click", function (e) {
         document.location.reload(true);
       });
     }
@@ -104,7 +104,7 @@ $(window).bind("load", function(){
     }
 
     function openCard () {
-      $("body").on("click", "div.image-div", function () {
+      $("body").on("click", "div.image-div", function (event) {
         var $imageObj = $(event.target)
         .find("img")
         .show()
@@ -164,7 +164,7 @@ $(window).bind("load", function(){
       var mediumGame = $("li#medium"),
         hardGame = $("li#hard"),
         $err = $("div.error");
-      $(mediumGame).add(hardGame).on("click", function() {
+      $(mediumGame).add(hardGame).on("click", function(event) {
         $($err).show().delay(2000).fadeOut(3000);
       })
 
