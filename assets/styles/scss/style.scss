@@ -143,8 +143,10 @@ div.info-game-container {
       &.game-mode {
         font-variant: small-caps;
         text-align: center;
-        .mode:active {
+        .mode {
           cursor: pointer;
+        }
+        &:active {
           background-color: RGBA($deepBlueColorRGBApart, .5);
           color: white;
         }
@@ -226,6 +228,21 @@ div#cards-container {
   width: 95%;
   text-align: center;
   background-color: RGBA($deepBlueColorRGBApart, .5);
+  .choose-mode {
+    margin: 0 auto;
+    color: white;
+    font-size: 3em;
+    text-shadow: 1px 1px 5px black;
+    @include prefix(animation, appear 3s infinite linear alternate, webkit moz ms o);
+  }
+  @keyframes appear {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 }
 div.image-div {
   cursor: pointer;

@@ -1,7 +1,11 @@
 $(window).bind("load", function(){
   "use strict";
 
-  var memoryGame = (function() {
+  /******************************************
+  SHARED
+  ******************************************/
+
+  var shared = (function() {
     var allCards = [
     "assets/images/annoyed-cat.jpg",
     "assets/images/cat-bathing.jpg",
@@ -20,73 +24,142 @@ $(window).bind("load", function(){
     "assets/images/grumpy-cat.jpg",
     "assets/images/cat-with-glasses.jpg"
     ],
-    resetButton = $("#reset"),
-    clickCounter = 0,
-    pairsFound = 0,
-    pairsLeft = 8,
-    clickedCards = [],
+    $cardsContainer = $("#cards-container"),
     $numClicks = $("#num-clicks"),
     $pairsFound = $("#pairs-found"),
     $pairsLeft = $("#pairs-left"),
-    $cardsContainer = $("#cards-container"),
+    $easyGame = $("li#easy"),
+    $mediumGame = $("li#medium"),
+    $hardGame = $("li#hard"),
+    resetButton = $("#reset"),
     rank,
-    playerName = "";
+    pairsFound,
+    pairsLeft,
+    clickCounter,
+    clickedCards = [],
+    gameMode;
+
+    function emptyContainer() {
+      $($cardsContainer).empty();
+    }
 
     function shuffle(array){
       for(var j, x, i = array.length; i; j = Math.floor(Math.random() * i), x = array[--i], array[i] = array[j], array[j] = x);
       return array;
     }
 
-    function setUpReset() {
-      $(resetButton).on("click", function (e) {
+    function setUpResetButton() {
+      $(resetButton).on("click", function (event) {
         document.location.reload(true);
       });
     }
 
-    function incrementClicks() {
-      clickCounter++;
-      return clickCounter;
-    }
-
-    function updateCounterEl() {
-      $($numClicks).html(clickCounter);
-    }
-
-    function getPlayerName() {
-      playerName = prompt("What's your name?");
-      if (playerName === "") {
-        getPlayerName();
-      } else {
-        return
+    function setGameMode(mode) {
+      shared.gameMode = mode;
+      switch (shared.gameMode) {
+        case "easy":
+          console.log("Easy game chosen.");
+          console.log(shared.gameMode);
+        break;
+        case "medium":
+          console.log("Medium game chosen.");
+        break;
+        case "hard":
+          console.log("Hard game chosen.");
+        break;
       }
-    }
 
-    function startGame () {
-      setUpReset();
-      shuffle(allCards);
-      resetGameScores();
-      // getPlayerName();
-    }
-
-    function clearClickedCards() {
-      clickedCards = [];
     }
 
     function resetGameScores() {
-      $($numClicks).html(clickCounter);
-      $($pairsFound).html(pairsFound);
-      $($pairsLeft).html(pairsLeft);
-      createCards();
+      shared.clickCounter = 0;
+      $numClicks.html(shared.clickCounter);
+      console.log("Click Counter: " + shared.clickCounter);
+      shared.pairsFound = 0;
+      $pairsFound.html(shared.pairsFound);
+      console.log("Pairs Found: " + shared.pairsFound);
     }
 
+    function clearClickedCardsArray() {
+      shared.clickedCards = [];
+      // console.log("Clicked Cards Array Length: " + clickedCards.length)
+    }
+
+    function setPairsLeft(setPairsLeft) {
+      shared.pairsLeft = setPairsLeft;
+      $pairsLeft.html(setPairsLeft);
+      // console.log("Pairs left: " + shared.pairsLeft);
+    }
+
+    function createCards (array) {
+      var cards = "";
+      $.each(array, function(index, value) {
+        cards += "<div class='image-div'><img src='" + value + "'></img></div>";
+      });
+        $($cardsContainer).append(cards);
+        console.log("Click Counter: " + shared.clickCounter);
+        openCard();
+    }
+
+    function openCard () {
+      $("div.image-div").on("click", function(event) {
+        var $imageObj = $(event.target)
+        .find("img")
+        .show()
+        .click(false);
+        incrementClicks();
+        console.log("Click Counter: " + shared.clickCounter);
+        console.log("Pairs found: " + shared.pairsFound);
+        console.log("Pairs left: " + shared.pairsLeft);
+        shared.clickedCards.push($imageObj);
+        console.log("Clicked Cards Array Length: " + shared.clickedCards.length);
+        if (shared.clickCounter % 2 === 0) {
+          compareCards();
+        }
+      });
+    } // ends openCard function
+
+    function incrementClicks() {
+      shared.clickCounter++;
+      $($numClicks).html(shared.clickCounter);
+    }
+
+    function compareCards() {
+      // $card1 and $card2 are html img elements
+      var $card1 = shared.clickedCards[0][0],
+          $card2 = shared.clickedCards[1][0],
+          card1SRC = $($card1).attr("src"),
+          card2SRC = $($card2).attr("src");
+      if (card1SRC === card2SRC) {
+        matchedCards();
+      } else {
+        unmatchedCards($card1, $card2);
+      }
+    } // ends compareCards
+
+    function unmatchedCards($card1, $card2) {
+      console.log("They don't match.");
+      $($card1).add($card2).delay(800).fadeOut(300);
+      clearClickedCardsArray();
+    } //ends unmatchedCards
+
+    function matchedCards() {
+      console.log("They match!");
+      clearClickedCardsArray();
+      updatePairsFound();
+      updatePairsLeft();
+      catSound();
+      checkforWin();
+    } // end cardsMatch
+
     function updatePairsFound() {
-      pairsFound++;
-      $($pairsFound).html(pairsFound);
+      shared.pairsFound++;
+      $($pairsFound).html(shared.pairsFound);
     }
 
     function updatePairsLeft() {
-      pairsLeft--;
-      $($pairsLeft).html(pairsLeft);
+      shared.pairsLeft--;
+      $($pairsLeft).html(shared.pairsLeft);
     }
 
     function catSound() {
@@ -94,92 +167,132 @@ $(window).bind("load", function(){
       $($click).get(0).play();
     }
 
-    function createCards () {
-      var cards = "";
-      $.each(allCards, function(index, value) {
-        cards += "<div class='image-div'><img src='" + value + "'></img></div>";
-      });
-        $($cardsContainer).append(cards);
-        openCard();
-    }
-
-    function openCard () {
-      $("body").on("click", "div.image-div", function (event) {
-        var $imageObj = $(event.target)
-        .find("img")
-        .show()
-        .click(false);
-        incrementClicks();
-        updateCounterEl();
-        clickedCards.push($imageObj);
-        if (clickCounter % 2 === 0) {
-          compareCards();
-        }
-      });
-    } // ends openCard function
-
-    function compareCards() {
-      // $card1 and $card2 are html img elements
-      var $card1 = clickedCards[0][0],
-          $card2 = clickedCards[1][0],
-          card1SRC = $($card1).attr("src"),
-          card2SRC = $($card2).attr("src");
-      if (card1SRC === card2SRC) {
-        matchedCards();
-      } else {
-        unmatchedCards($card1, $card2);
-      } // ends else for matching
-    } // ends compareCards
-
-    function matchedCards() {
-      console.log("They match!");
-      clearClickedCards();
-      updatePairsFound();
-      updatePairsLeft();
-      catSound();
-      if (pairsFound >= 8) {
-        $($pairsFound).html("<span class='green'>All of them!<span>");
-        getRank();
+    function checkforWin() {
+      console.log(shared.gameMode + " checking for win");
+      switch (shared.gameMode) {
+        case "easy":
+          if (shared.pairsFound >= 8) {
+            $($pairsFound).html("<span class='green'>All of them!<span>");
+            getRank(shared.gameMode);
+          }
+        break;
       }
-    } // end cardsMatch
-
-    function unmatchedCards($card1, $card2) {
-      console.log("They don't match.");
-      $($card1).add($card2).delay(800).fadeOut(300);
-      clearClickedCards();
-    } //ends unmatchedCards
+    }
 
     function getRank() {
-      if (clickCounter < 26) {
-        rank = "an Expert Cat Finder!";
-      } else if (clickCounter < 36) {
-        rank = "a Novice Cat Finder. Try again.";
-      } else {
-        rank = "a Beginner Cat Finder. Try again!";
+      switch (shared.gameMode) {
+        case "easy":
+          if (shared.clickCounter <= 26) {
+            rank = "an Expert Cat Finder!";
+          } else if (shared.clickCounter < 36) {
+            rank = "a Novice Cat Finder. Try again.";
+          } else {
+            rank = "a Beginner Cat Finder. Try again!";
+          }
+          alert("Great job-- you've won the game!\nRank: " + rank);
+        break;
+        case "medium":
+        console.log("Medium rankings");
+        break;
       }
-      alert("Great job, " + playerName + ". You've won the game!\nRank: " + rank);
-    }
+    } // Ends getRank()
 
-    function mediumHard() {
-      var mediumGame = $("li#medium"),
-        hardGame = $("li#hard"),
-        $err = $("div.error");
-      $(mediumGame).add(hardGame).on("click", function(event) {
-        $($err).show().delay(2000).fadeOut(3000);
-      })
+    return {
+      allCards: allCards,
+      $cardsContainer: $cardsContainer,
+      clickCounter: clickCounter,
+      emptyContainer: emptyContainer,
+      setUpResetButton: setUpResetButton,
+      $easyGame: $easyGame,
+      resetGameScores: resetGameScores,
+      $pairsLeft: $pairsLeft,
+      setPairsLeft: setPairsLeft,
+      createCards: createCards,
+      shuffle: shuffle,
+      setGameMode: setGameMode,
+      clickedCards: clickedCards,
+      clearClickedCardsArray: clearClickedCardsArray
+    };
 
+  })();
+
+  /******************************************
+  EASY MODE
+  ******************************************/
+
+  var easyMode = (function() {
+
+    function startGame () {
+      shared.emptyContainer();
+      shared.resetGameScores();
+      shared.clearClickedCardsArray();
+      shared.setPairsLeft(8);
+      shared.shuffle(shared.allCards);
+      shared.createCards(shared.allCards);
+      shared.setGameMode("easy");
     }
 
     return {
-      startGame: startGame,
-      mediumHard: mediumHard,
-      getPlayerName: getPlayerName
+      startGame: startGame
     };
 
   })(); // Ends memoryGame module
 
-  // Enables the reset button to work
-  memoryGame.startGame();
-  memoryGame.mediumHard();
+  /******************************************
+  MEDIUM MODE
+  ******************************************/
 
-});
+  var mediumMode = (function() {
+    var mediumButton = $("li#medium"),
+        mediumCards = [
+          "assets/images/cat-black-wig.jpg",
+          "assets/images/cat-earmuffs.jpg",
+          // "assets/images/cat-pizza.jpg",
+          // "assets/images/cat-wink.jpg",
+          // "assets/images/cat-pizza.jpg",
+          // "assets/images/cat-wink.jpg",
+          "assets/images/cat-earmuffs.jpg",
+          "assets/images/cat-black-wig.jpg"
+        ],
+        pairsLeft = 10;
+
+    function addCards() {
+      $(mediumButton).on("click", function(event) {
+        mediumCards = mediumCards.concat(shared.allCards);
+        startGame();
+      });
+    }
+
+    function startGame() {
+      easyMode.shuffle(mediumCards);
+      resetMediumGameCards();
+      easyMode.createCards(mediumCards);
+      // easyMode.openCard();
+    }
+
+    function resetMediumGameCards() {
+      $(easyMode.$pairsLeft).html(pairsLeft);
+    }
+
+    return {
+      addCards: addCards,
+      mediumCards: mediumCards,
+      pairsLeft: pairsLeft
+    };
+
+
+  })(); // Ends mediumMode
+
+  shared.setUpResetButton();
+
+  $(shared.$easyGame).on("click", function(event) {
+    console.log("easy clicked");
+    easyMode.startGame();
+  });
+
+  $(shared.mediumGame).on("click", function(event) {
+    shared.emptyContainer();
+    mediumMode.startGame();
+  });
+
+}); // Ends window.bind

@@ -1,5 +1,9 @@
 $(document).ready(function() {
 
+  var chooseGameMode = $("<div class='choose-mode'>Choose your game mode.</div>");
+
+  $("#cards-container").append(chooseGameMode);
+
   var gameModeUl = $("#game-mode"),
       liMode = gameModeUl.children(".mode");
 
@@ -64,10 +68,6 @@ $(document).ready(function() {
     $(hardGame).on("click", function() {
       $("#all-dir").children().slideDown(200);
     })
-  };
-
-  var gameTimer = function() {
-    $("#timer").html("0");
   };
 
   /* Initiates hover class for list hovered over */
