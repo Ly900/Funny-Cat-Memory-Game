@@ -143,8 +143,10 @@ div.info-game-container {
       &.game-mode {
         font-variant: small-caps;
         text-align: center;
-        .mode:active {
+        .mode {
           cursor: pointer;
+        }
+        &:active {
           background-color: RGBA($deepBlueColorRGBApart, .5);
           color: white;
         }
@@ -226,10 +228,6 @@ div#cards-container {
   width: 95%;
   text-align: center;
   background-color: RGBA($deepBlueColorRGBApart, .5);
-  // @include prefix(display, flex, webkit ms);
-  // @include prefix(display, flexbox, ms);
-  // @include prefix(display, box, webkit);
-  // @include prefix(align-items, center, webkit);
   .choose-mode {
     margin: 0 auto;
     color: white;

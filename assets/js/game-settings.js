@@ -70,10 +70,6 @@ $(document).ready(function() {
     })
   };
 
-  var gameTimer = function() {
-    $("#timer").html("0");
-  };
-
   /* Initiates hover class for list hovered over */
   hoveredList();
   /* Initiates active class for clicked list */
