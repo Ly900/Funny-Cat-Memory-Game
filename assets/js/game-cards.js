@@ -33,12 +33,9 @@ $(window).bind("load", function(){
     $hardGame = $("li#hard"),
     resetButton = $("#reset"),
     rank,
-    // pairsFound = 0,
     pairsFound,
     pairsLeft,
     clickCounter,
-    // clickCounter = 0,
-    // clickCounter,
     clickedCards = [],
     gameMode;
 
@@ -58,11 +55,11 @@ $(window).bind("load", function(){
     }
 
     function setGameMode(mode) {
-      gameMode = mode;
-      switch (gameMode) {
+      shared.gameMode = mode;
+      switch (shared.gameMode) {
         case "easy":
           console.log("Easy game chosen.");
-          console.log(gameMode);
+          console.log(shared.gameMode);
         break;
         case "medium":
           console.log("Medium game chosen.");
@@ -105,7 +102,6 @@ $(window).bind("load", function(){
     }
 
     function openCard () {
-      // $(document.body).on("click", "div.image-div", function (event) {
       $("div.image-div").on("click", function(event) {
         var $imageObj = $(event.target)
         .find("img")
@@ -153,7 +149,7 @@ $(window).bind("load", function(){
       updatePairsFound();
       updatePairsLeft();
       catSound();
-      // checkforWin();
+      checkforWin();
     } // end cardsMatch
 
     function updatePairsFound() {
@@ -171,24 +167,24 @@ $(window).bind("load", function(){
       $($click).get(0).play();
     }
 
-    // function checkforWin() {
-    //   console.log(gameMode + " checking for win");
-    //   switch (gameMode) {
-    //     case "easy":
-    //       if (pairsFound >= 8) {
-    //         $($pairsFound).html("<span class='green'>All of them!<span>");
-    //         // getRank(gameMode);
-    //       }
-    //     break;
-    //   }
-    // }
+    function checkforWin() {
+      console.log(shared.gameMode + " checking for win");
+      switch (shared.gameMode) {
+        case "easy":
+          if (shared.pairsFound >= 8) {
+            $($pairsFound).html("<span class='green'>All of them!<span>");
+            getRank(shared.gameMode);
+          }
+        break;
+      }
+    }
 
     function getRank() {
-      switch (gameMode) {
+      switch (shared.gameMode) {
         case "easy":
-          if (clickCounter <= 26) {
+          if (shared.clickCounter <= 26) {
             rank = "an Expert Cat Finder!";
-          } else if (clickCounter < 36) {
+          } else if (shared.clickCounter < 36) {
             rank = "a Novice Cat Finder. Try again.";
           } else {
             rank = "a Beginner Cat Finder. Try again!";
@@ -233,7 +229,7 @@ $(window).bind("load", function(){
       shared.setPairsLeft(8);
       shared.shuffle(shared.allCards);
       shared.createCards(shared.allCards);
-      // shared.setGameMode("easy");
+      shared.setGameMode("easy");
     }
 
     return {
