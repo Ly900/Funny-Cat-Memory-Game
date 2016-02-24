@@ -32,11 +32,11 @@ $(window).bind("load", function(){
     $mediumGame = $("li#medium"),
     $hardGame = $("li#hard"),
     resetButton = $("#reset"),
-    rank;
+    rank,
     // pairsFound = 0,
-    this.pairsFound = 0;
-    this.pairsLeft = 0;
-    this.clickCounter = 0;
+    pairsFound,
+    pairsLeft,
+    clickCounter,
     // clickCounter = 0,
     // clickCounter,
     clickedCards = [],
@@ -52,7 +52,7 @@ $(window).bind("load", function(){
     }
 
     function setUpResetButton() {
-      $(resetButton).on("click", function () {
+      $(resetButton).on("click", function (event) {
         document.location.reload(true);
       });
     }
@@ -101,11 +101,11 @@ $(window).bind("load", function(){
       });
         $($cardsContainer).append(cards);
         console.log("Click Counter: " + shared.clickCounter);
-        // openCard();
+        openCard();
     }
 
     function openCard () {
-      $(document.body).on("click", "div.image-div", function () {
+      $(document.body).on("click", "div.image-div", function (event) {
         var $imageObj = $(event.target)
         .find("img")
         .show()
@@ -225,9 +225,9 @@ $(window).bind("load", function(){
   var easyMode = (function() {
 
     function startGame () {
-      // shared.emptyContainer();
+      shared.emptyContainer();
       // shared.resetGameScores();
-      shared.clickCounter = "hi";
+      shared.clickCounter = 0;
       console.log("clickCounter: " + shared.clickCounter);
       // shared.clearClickedCards();
       shared.clickedCards = [];
@@ -270,7 +270,7 @@ $(window).bind("load", function(){
         pairsLeft = 10;
 
     function addCards() {
-      $(mediumButton).on("click", function() {
+      $(mediumButton).on("click", function(event) {
         mediumCards = mediumCards.concat(shared.allCards);
         startGame();
       });
@@ -298,12 +298,12 @@ $(window).bind("load", function(){
 
   shared.setUpResetButton();
 
-  $(shared.$easyGame).on("click", function() {
+  $(shared.$easyGame).on("click", function(event) {
     console.log("easy clicked");
     easyMode.startGame();
   });
 
-  $(shared.mediumGame).on("click", function() {
+  $(shared.mediumGame).on("click", function(event) {
     shared.emptyContainer();
     mediumMode.startGame();
   });
