@@ -58,7 +58,6 @@ $(window).bind("load", function(){
 
     function startGame() {
       $($cardsContainer).empty();
-      console.log($cardsContainer);
       clearClickedCardsArray();
       console.log(shared.clickedCards);
       shared.clickCounter = 0;
@@ -86,7 +85,7 @@ $(window).bind("load", function(){
         break;
         case "medium":
           console.log("Medium game chosen.");
-          console.log(shared.gameMode);
+          // console.log(shared.gameMode);
         break;
         case "hard":
           console.log("Hard game chosen.");
@@ -172,14 +171,10 @@ $(window).bind("load", function(){
     }
 
     function checkforWin() {
-      console.log(shared.gameMode + "mode: checking for win");
-      switch (shared.gameMode) {
-        case "easy":
-          if (shared.pairsFound >= 8) {
-            $($pairsFound).html("<span class='green'>All of them!<span>");
-            getRank(shared.gameMode);
-          }
-        break;
+      console.log(shared.gameMode + ": checking for win");
+      if (shared.pairsLeft === 0) {
+        $($pairsFound).html("<span class='green'>All of them!<span>");
+        getRank(shared.gameMode);
       }
     }
 
@@ -188,7 +183,7 @@ $(window).bind("load", function(){
         case "easy":
           if (shared.clickCounter <= 26) {
             rank = "an Expert Cat Finder!";
-          } else if (shared.clickCounter < 36) {
+          } else if (shared.clickCounter <= 36) {
             rank = "a Novice Cat Finder. Try again.";
           } else {
             rank = "a Beginner Cat Finder. Try again!";
@@ -196,7 +191,14 @@ $(window).bind("load", function(){
           alert("Great job-- you've won the game!\nRank: " + rank);
         break;
         case "medium":
-        console.log("Medium rankings");
+          if (shared.clickCounter <= 34) {
+            rank = "an Expert Cat Finder!";
+          } else if (shared.clickCounter <= 44) {
+            rank = "a Novice Cat Finder. Try again.";
+          } else {
+            rank = "a Beginner Cat Finder. Try again!";
+          }
+          alert("Great job-- you've won the game!\nRank: " + rank);
         break;
       }
     } // Ends getRank()
@@ -267,15 +269,14 @@ $(window).bind("load", function(){
     function startGame() {
       shared.startGame();
       shared.setPairsLeft(10);
-      // shared.setGameMode("medium");
       addCards();
     }
 
     function addCards() {
       allCards = mediumCards.concat(shared.allCards);
       shared.shuffle(allCards);
-      console.log(allCards);
       shared.createCards(allCards);
+      shared.setGameMode("medium");
     }
 
 
