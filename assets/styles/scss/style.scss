@@ -145,10 +145,10 @@ div.info-game-container {
         text-align: center;
         .mode {
           cursor: pointer;
-        }
-        &:active {
-          background-color: RGBA($deepBlueColorRGBApart, .5);
-          color: white;
+          &:active {
+            background-color: RGBA($deepBlueColorRGBApart, .5);
+            color: white;
+          }
         }
       }
       &.game-directions {
