@@ -186,13 +186,12 @@ $(window).bind("load", function(){
       switch (shared.gameMode) {
         case "easy":
           clicks <= 26 ? rank = expert : clicks <= 36 ? rank = novice : rank = beginner;
-          // alert("Great job-- you've won the game!\nRank: " + rank);
           break;
         case "medium":
           clicks <= 34 ? rank = expert : clicks <= 44 ? rank = novice : rank = beginner;
         break;
       }
-        alert("Great job-- you've won the game!\nRank: " + rank);
+      alert("Great job-- you've won the game!\nRank: " + rank);
     } // Ends getRank()
 
     return {
@@ -212,7 +211,8 @@ $(window).bind("load", function(){
       startGame: startGame,
       clearClickedCardsArray,
       $mediumGame: $mediumGame,
-      startGame: startGame
+      startGame: startGame,
+      $hardGame: $hardGame
     };
 
   })();
@@ -271,6 +271,39 @@ $(window).bind("load", function(){
       shared.setGameMode("medium");
     }
 
+    return {
+      startGame: startGame
+    };
+
+
+  })(); // Ends mediumMode
+
+  /******************************************
+  HARD MODE
+  ******************************************/
+
+  var hardMode = (function() {
+    var hardCards = [
+      "assets/images/cat-pizza.jpg",
+      "assets/images/cat-wink.jpg",
+      "assets/images/cat-pizza.jpg",
+      "assets/images/cat-wink.jpg",
+    ],
+    pairsLeft = 12,
+    allCards;
+
+    function startGame() {
+      shared.startGame();
+      shared.setPairsLeft(12);
+      addCards();
+    }
+
+    function addCards() {
+      allCards = hardCards.concat(shared.allCards);
+      shared.shuffle(allCards);
+      shared.createCards(allCards);
+      shared.setGameMode("hard");
+    }
 
     return {
       startGame: startGame
@@ -289,6 +322,11 @@ $(window).bind("load", function(){
   $(shared.$mediumGame).on("click", function(event) {
     console.log("medium clicked");
     mediumMode.startGame();
+  });
+
+  $(shared.$hardGame).on("click", function(event) {
+    console.log("hard clicked");
+    hardMode.startGame();
   });
 
 }); // Ends window.bind
