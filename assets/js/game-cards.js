@@ -179,28 +179,20 @@ $(window).bind("load", function(){
     }
 
     function getRank() {
+      var expert = "an Expert Cat Finder!",
+          novice = "a Novice Cat Finder. Try again.",
+          beginner = "a Beginner Cat Finder. Try again!",
+          clicks = shared.clickCounter;
       switch (shared.gameMode) {
         case "easy":
-          if (shared.clickCounter <= 26) {
-            rank = "an Expert Cat Finder!";
-          } else if (shared.clickCounter <= 36) {
-            rank = "a Novice Cat Finder. Try again.";
-          } else {
-            rank = "a Beginner Cat Finder. Try again!";
-          }
-          alert("Great job-- you've won the game!\nRank: " + rank);
-        break;
+          clicks <= 26 ? rank = expert : clicks <= 36 ? rank = novice : rank = beginner;
+          // alert("Great job-- you've won the game!\nRank: " + rank);
+          break;
         case "medium":
-          if (shared.clickCounter <= 34) {
-            rank = "an Expert Cat Finder!";
-          } else if (shared.clickCounter <= 44) {
-            rank = "a Novice Cat Finder. Try again.";
-          } else {
-            rank = "a Beginner Cat Finder. Try again!";
-          }
-          alert("Great job-- you've won the game!\nRank: " + rank);
+          clicks <= 34 ? rank = expert : clicks <= 44 ? rank = novice : rank = beginner;
         break;
       }
+        alert("Great job-- you've won the game!\nRank: " + rank);
     } // Ends getRank()
 
     return {
