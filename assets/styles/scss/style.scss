@@ -134,10 +134,11 @@ div.info-game-container {
       background-color: RGBA(255, 255, 255, .8);
       font-size: .8em;
       img#settings-icon,
-      img#game-directions {
+      img#game-directions{
         width: 2.5em;
       }
-      img#star-icon {
+      img#star-icon,
+      img#clock-icon {
         width: 2em;
       }
       &.game-mode {
@@ -196,6 +197,7 @@ div.info-game-container {
       }
       &.game-timer {
         text-align: center;
+        display: none;
       }
     }
 

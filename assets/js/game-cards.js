@@ -256,7 +256,8 @@ $(window).bind("load", function(){
       "assets/images/cat-black-wig.jpg"
     ],
     pairsLeft = 10,
-    allCards;
+    allCards,
+    $timerDiv = $(".game-timer");
 
     function startGame() {
       shared.startGame();
@@ -272,7 +273,8 @@ $(window).bind("load", function(){
     }
 
     return {
-      startGame: startGame
+      startGame: startGame,
+      $timerDiv: $timerDiv
     };
 
 
@@ -315,17 +317,15 @@ $(window).bind("load", function(){
   shared.setUpResetButton();
 
   $(shared.$easyGame).on("click", function(event) {
-    console.log("easy clicked");
     easyMode.startGame();
   });
 
   $(shared.$mediumGame).on("click", function(event) {
-    console.log("medium clicked");
     mediumMode.startGame();
+    $(mediumMode.$timerDiv).show();
   });
 
   $(shared.$hardGame).on("click", function(event) {
-    console.log("hard clicked");
     hardMode.startGame();
   });
 
