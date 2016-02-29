@@ -197,7 +197,11 @@ div.info-game-container {
       }
       &.game-timer {
         text-align: center;
-        display: none;
+        // display: none;
+        span#timer {
+          font-size: 3em;
+          color:  green;
+        }
       }
     }
 
