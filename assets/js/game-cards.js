@@ -38,7 +38,8 @@ $(window).bind("load", function(){
     clickCounter,
     clickedCards = [],
     gameMode,
-    $timerDiv = $(".game-timer");
+    $timerDiv = $(".game-timer"),
+    $timer = $("#timer");
 
     function clearClickedCardsArray() {
       shared.clickedCards = [];
@@ -47,7 +48,6 @@ $(window).bind("load", function(){
     function startGame() {
       $($cardsContainer).empty();
       clearClickedCardsArray();
-      console.log(shared.clickedCards);
       shared.clickCounter = 0;
       $numClicks.html(shared.clickCounter);
       shared.pairsFound = 0;
@@ -182,6 +182,19 @@ $(window).bind("load", function(){
       alert("Great job-- you've won the game!\nRank: " + rank);
     } // Ends getRank()
 
+    function showTimer() {
+      $($timerDiv).slideDown(200);
+      switch (shared.gameMode) {
+        case "medium":
+          $("#timer").text("30");
+        break;
+      }
+    }
+
+    function hideTimer() {
+      $($timerDiv).slideUp(200);
+    }
+
     // function hideDirections() {
     //   $($gameDir).slideUp();
     // }
@@ -203,7 +216,9 @@ $(window).bind("load", function(){
       $mediumGame: $mediumGame,
       startGame: startGame,
       $hardGame: $hardGame,
-      $timerDiv: $timerDiv
+      $timerDiv: $timerDiv,
+      showTimer: showTimer,
+      hideTimer: hideTimer
       // $gameDir: $gameDir,
       // hideDir: hideDirections
     };
@@ -224,11 +239,7 @@ $(window).bind("load", function(){
       shared.shuffle(shared.allCards);
       shared.createCards(shared.allCards);
       shared.setGameMode("easy");
-      hideTimer();
-    }
-
-    function hideTimer() {
-      $(shared.$timerDiv).slideUp(200);
+      shared.hideTimer();
     }
 
     return {
@@ -252,7 +263,7 @@ $(window).bind("load", function(){
       "assets/images/cat-earmuffs.jpg",
       "assets/images/cat-black-wig.jpg"
     ],
-    pairsLeft = 10,
+    pairsLeft,
     allCards;
     // $gameDir = $(".game-directions");
 
@@ -267,6 +278,7 @@ $(window).bind("load", function(){
       shared.shuffle(allCards);
       shared.createCards(allCards);
       shared.setGameMode("medium");
+      shared.showTimer();
     }
 
     return {
@@ -318,7 +330,6 @@ $(window).bind("load", function(){
 
   $(shared.$mediumGame).on("click", function(event) {
     mediumMode.startGame();
-    $(shared.$timerDiv).slideDown(200);
   });
 
   $(shared.$hardGame).on("click", function(event) {
