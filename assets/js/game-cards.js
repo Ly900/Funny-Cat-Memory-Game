@@ -39,7 +39,8 @@ $(window).bind("load", function(){
     clickedCards = [],
     gameMode,
     $timerDiv = $(".game-timer"),
-    $timer = $("#timer");
+    $timer = $("#timer"),
+    timer;
 
     function clearClickedCardsArray() {
       shared.clickedCards = [];
@@ -106,7 +107,17 @@ $(window).bind("load", function(){
         if (shared.clickCounter % 2 === 0) {
           compareCards();
         }
-        // hideDirections();
+        if (shared.clickCounter === 1) {
+          console.log(shared.clickCounter);
+          switch (shared.gameMode) {
+            case "medium":
+              startTimer();
+            break;
+            case "hard":
+              startTimer();
+            break;
+          }
+        }
       });
     } // ends openCard function
 
@@ -186,13 +197,26 @@ $(window).bind("load", function(){
       $($timerDiv).slideDown(200);
       switch (shared.gameMode) {
         case "medium":
-          $("#timer").text("30");
+          timer = 40;
+          ($($timer).text(timer));
+        break;
+        case "hard":
+        timer = 30;
+        ($($timer).text(timer));
         break;
       }
     }
 
     function hideTimer() {
       $($timerDiv).slideUp(200);
+    }
+
+    function startTimer() {
+      console.log("Timer started");
+      setInterval(function() {
+        timer--;
+        $($timer).text(timer);
+      }, 1000)
     }
 
     // function hideDirections() {
