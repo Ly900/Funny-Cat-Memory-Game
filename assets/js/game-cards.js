@@ -37,23 +37,11 @@ $(window).bind("load", function(){
     pairsLeft,
     clickCounter,
     clickedCards = [],
-    gameMode;
-
-    function emptyContainer() {
-      // $($cardsContainer).empty();
-    }
-
+    gameMode,
+    $timerDiv = $(".game-timer");
 
     function clearClickedCardsArray() {
       shared.clickedCards = [];
-    }
-
-
-    function resetGameScores() {
-      // shared.clickCounter = 0;
-      // $numClicks.html(shared.clickCounter);
-      // shared.pairsFound = 0;
-      // $pairsFound.html(shared.pairsFound);
     }
 
     function startGame() {
@@ -96,7 +84,6 @@ $(window).bind("load", function(){
     function setPairsLeft(setPairsLeft) {
       shared.pairsLeft = setPairsLeft;
       $pairsLeft.html(setPairsLeft);
-      // console.log("Pairs left: " + shared.pairsLeft);
     }
 
     function createCards (array) {
@@ -119,6 +106,7 @@ $(window).bind("load", function(){
         if (shared.clickCounter % 2 === 0) {
           compareCards();
         }
+        // hideDirections();
       });
     } // ends openCard function
 
@@ -194,14 +182,16 @@ $(window).bind("load", function(){
       alert("Great job-- you've won the game!\nRank: " + rank);
     } // Ends getRank()
 
+    // function hideDirections() {
+    //   $($gameDir).slideUp();
+    // }
+
     return {
       allCards: allCards,
       $cardsContainer: $cardsContainer,
       clickCounter: clickCounter,
-      emptyContainer: emptyContainer,
       setUpResetButton: setUpResetButton,
       $easyGame: $easyGame,
-      resetGameScores: resetGameScores,
       $pairsLeft: $pairsLeft,
       setPairsLeft: setPairsLeft,
       createCards: createCards,
@@ -212,7 +202,10 @@ $(window).bind("load", function(){
       clearClickedCardsArray,
       $mediumGame: $mediumGame,
       startGame: startGame,
-      $hardGame: $hardGame
+      $hardGame: $hardGame,
+      $timerDiv: $timerDiv
+      // $gameDir: $gameDir,
+      // hideDir: hideDirections
     };
 
   })();
@@ -222,7 +215,6 @@ $(window).bind("load", function(){
   ******************************************/
 
   var easyMode = (function() {
-
     function startGame () {
       // shared.emptyContainer();
       // shared.resetGameScores();
@@ -232,6 +224,11 @@ $(window).bind("load", function(){
       shared.shuffle(shared.allCards);
       shared.createCards(shared.allCards);
       shared.setGameMode("easy");
+      hideTimer();
+    }
+
+    function hideTimer() {
+      $(shared.$timerDiv).slideUp(200);
     }
 
     return {
@@ -256,8 +253,8 @@ $(window).bind("load", function(){
       "assets/images/cat-black-wig.jpg"
     ],
     pairsLeft = 10,
-    allCards,
-    $timerDiv = $(".game-timer");
+    allCards;
+    // $gameDir = $(".game-directions");
 
     function startGame() {
       shared.startGame();
@@ -273,8 +270,7 @@ $(window).bind("load", function(){
     }
 
     return {
-      startGame: startGame,
-      $timerDiv: $timerDiv
+      startGame: startGame
     };
 
 
@@ -322,7 +318,7 @@ $(window).bind("load", function(){
 
   $(shared.$mediumGame).on("click", function(event) {
     mediumMode.startGame();
-    $(mediumMode.$timerDiv).show();
+    $(shared.$timerDiv).slideDown(200);
   });
 
   $(shared.$hardGame).on("click", function(event) {
