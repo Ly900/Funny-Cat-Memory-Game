@@ -41,7 +41,8 @@ $(window).bind("load", function(){
     $timerDiv = $(".game-timer"),
     $timer = $("#timer"),
     timer,
-    time;
+    time,
+    $gameDir = $(".game-directions");
 
     function clearClickedCardsArray() {
       shared.clickedCards = [];
@@ -112,6 +113,7 @@ $(window).bind("load", function(){
           switch (shared.gameMode) {
             case "medium":
               startTimer();
+              hideDirections();
             break;
             case "hard":
               startTimer();
@@ -244,9 +246,13 @@ $(window).bind("load", function(){
       stopTimer();
     }
 
-    // function hideDirections() {
-    //   $($gameDir).slideUp();
-    // }
+    function hideDirections() {
+      $($gameDir).slideUp(200);
+    }
+
+    function showDirections() {
+      $($gameDir).slideDown(200);
+    }
 
     return {
       allCards: allCards,
@@ -267,9 +273,10 @@ $(window).bind("load", function(){
       $hardGame: $hardGame,
       $timerDiv: $timerDiv,
       showTimer: showTimer,
-      hideTimer: hideTimer
-      // $gameDir: $gameDir,
-      // hideDir: hideDirections
+      hideTimer: hideTimer,
+      $gameDir: $gameDir,
+      hideDirections: hideDirections,
+      showDirections: showDirections
     };
 
   })();
@@ -289,6 +296,7 @@ $(window).bind("load", function(){
       shared.createCards(shared.allCards);
       shared.setGameMode("easy");
       shared.hideTimer();
+      shared.showDirections();
     }
 
     return {
@@ -305,16 +313,11 @@ $(window).bind("load", function(){
     var mediumCards = [
       "assets/images/cat-black-wig.jpg",
       "assets/images/cat-earmuffs.jpg",
-      // "assets/images/cat-pizza.jpg",
-      // "assets/images/cat-wink.jpg",
-      // "assets/images/cat-pizza.jpg",
-      // "assets/images/cat-wink.jpg",
       "assets/images/cat-earmuffs.jpg",
       "assets/images/cat-black-wig.jpg"
     ],
     pairsLeft,
     allCards;
-    // $gameDir = $(".game-directions");
 
     function startGame() {
       shared.startGame();
