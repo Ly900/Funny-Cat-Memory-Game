@@ -40,7 +40,8 @@ $(window).bind("load", function(){
     gameMode,
     $timerDiv = $(".game-timer"),
     $timer = $("#timer"),
-    timer;
+    timer,
+    time;
 
     function clearClickedCardsArray() {
       shared.clickedCards = [];
@@ -108,7 +109,6 @@ $(window).bind("load", function(){
           compareCards();
         }
         if (shared.clickCounter === 1) {
-          console.log(shared.clickCounter);
           switch (shared.gameMode) {
             case "medium":
               startTimer();
@@ -170,9 +170,9 @@ $(window).bind("load", function(){
     }
 
     function checkforWin() {
-      console.log(shared.gameMode + ": checking for win");
       if (shared.pairsLeft === 0) {
         $($pairsFound).html("<span class='green'>All of them!<span>");
+        stopTimer();
         getRank(shared.gameMode);
       }
     }
@@ -181,23 +181,26 @@ $(window).bind("load", function(){
       var expert = "an Expert Cat Finder!",
           novice = "a Novice Cat Finder. Try again.",
           beginner = "a Beginner Cat Finder. Try again!",
-          clicks = shared.clickCounter;
+          clicks = shared.clickCounter,
+          rankAlert = "Great job-- you've won the game! \nRank: "
       switch (shared.gameMode) {
         case "easy":
           clicks <= 26 ? rank = expert : clicks <= 36 ? rank = novice : rank = beginner;
+          alert(rankAlert + rank);
           break;
         case "medium":
           clicks <= 34 ? rank = expert : clicks <= 44 ? rank = novice : rank = beginner;
+          alert(rankAlert + rank +
+          "\nTime left: " + timer + " seconds. \nBravo!");
         break;
       }
-      alert("Great job-- you've won the game!\nRank: " + rank);
     } // Ends getRank()
 
     function showTimer() {
       $($timerDiv).slideDown(200);
       switch (shared.gameMode) {
         case "medium":
-          timer = 40;
+          timer = 45;
           ($($timer).text(timer));
         break;
         case "hard":
@@ -213,10 +216,25 @@ $(window).bind("load", function(){
 
     function startTimer() {
       console.log("Timer started");
-      setInterval(function() {
+      time = setInterval(function() {
         timer--;
         $($timer).text(timer);
+        if (timer === 0) {
+          timeUp();
+        }
       }, 1000)
+    }
+
+    function stopTimer() {
+      clearInterval(time);
+    }
+
+    function timeUp() {
+      alert("Sorry! Time's up! You were able to find " + shared.pairsFound + " matching pairs. Try again!");
+      $("div.image-div").unbind("click").on("click", function(event) {
+        alert("Nice try! Please reset the game or choose a new mode.");
+      })
+      stopTimer();
     }
 
     // function hideDirections() {
