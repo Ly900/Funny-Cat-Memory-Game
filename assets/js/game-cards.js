@@ -190,8 +190,15 @@ $(window).bind("load", function(){
           break;
         case "medium":
           clicks <= 34 ? rank = expert : clicks <= 44 ? rank = novice : rank = beginner;
-          alert(rankAlert + rank +
-          "\nTime left: " + timer + " seconds. \nBravo!");
+          console.log(rank);
+          if (rank === expert) {
+            rankAlert += rank +
+            "\nTime left: " + timer + " seconds. \nBravo!";
+          } else {
+            rankAlert += rank +
+            "\nTime left: " + timer + " seconds. \nBravo! \nBut can you become an Expert Cat Finder?";
+          }
+            alert(rankAlert);
         break;
       }
     } // Ends getRank()
