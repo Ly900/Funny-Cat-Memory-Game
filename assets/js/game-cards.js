@@ -276,7 +276,8 @@ $(window).bind("load", function(){
       hideTimer: hideTimer,
       $gameDir: $gameDir,
       hideDirections: hideDirections,
-      showDirections: showDirections
+      showDirections: showDirections,
+      stopTimer: stopTimer
     };
 
   })();
@@ -295,6 +296,7 @@ $(window).bind("load", function(){
       shared.shuffle(shared.allCards);
       shared.createCards(shared.allCards);
       shared.setGameMode("easy");
+      shared.stopTimer();
       shared.hideTimer();
       shared.showDirections();
     }
