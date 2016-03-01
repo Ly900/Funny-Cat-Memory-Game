@@ -209,6 +209,7 @@ $(window).bind("load", function(){
       $($timerDiv).slideDown(200);
       switch (shared.gameMode) {
         case "medium":
+        stopTimer();
           timer = 45;
           ($($timer).text(timer));
         break;
@@ -319,13 +320,9 @@ $(window).bind("load", function(){
     allCards;
 
     function startGame() {
+      allCards = mediumCards.concat(shared.allCards);
       shared.startGame();
       shared.setPairsLeft(10);
-      addCards();
-    }
-
-    function addCards() {
-      allCards = mediumCards.concat(shared.allCards);
       shared.shuffle(allCards);
       shared.createCards(allCards);
       shared.setGameMode("medium");
