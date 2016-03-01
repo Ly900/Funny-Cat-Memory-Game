@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-  var chooseGameMode = $("<div class='choose-mode'>Choose your game mode.</div>");
+  var chooseGameMode = $("<div class='choose-mode'>Choose your game mode from the options on the left.<span class='reminders'><br/>You must enable JavaScript to play.</br>And turn on your sound!</span></div>");
 
   $("#cards-container").append(chooseGameMode);
 

@@ -288,9 +288,6 @@ $(window).bind("load", function(){
 
   var easyMode = (function() {
     function startGame () {
-      // shared.emptyContainer();
-      // shared.resetGameScores();
-      // shared.clearClickedCardsArray();
       shared.startGame();
       shared.setPairsLeft(8);
       shared.shuffle(shared.allCards);
