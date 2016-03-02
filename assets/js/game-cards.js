@@ -142,13 +142,11 @@ $(window).bind("load", function(){
     } // ends compareCards
 
     function unmatchedCards($card1, $card2) {
-      console.log("They don't match.");
       $($card1).add($card2).delay(800).fadeOut(300);
       clearClickedCardsArray();
     } //ends unmatchedCards
 
     function matchedCards() {
-      console.log("They match!");
       clearClickedCardsArray();
       updatePairsFound();
       updatePairsLeft();
@@ -192,7 +190,6 @@ $(window).bind("load", function(){
           break;
         case "medium":
           clicks <= 34 ? rank = expert : clicks <= 44 ? rank = novice : rank = beginner;
-          console.log(rank);
           if (rank === expert) {
             rankAlert += rank +
             "\nTime left: " + timer + " seconds. \nBravo!";
@@ -225,7 +222,6 @@ $(window).bind("load", function(){
     }
 
     function startTimer() {
-      console.log("Timer started");
       time = setInterval(function() {
         timer--;
         $($timer).text(timer);
