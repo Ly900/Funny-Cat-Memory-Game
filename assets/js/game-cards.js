@@ -117,6 +117,7 @@ $(window).bind("load", function(){
             break;
             case "hard":
               startTimer();
+              hideDirections();
             break;
           }
         }
@@ -206,13 +207,14 @@ $(window).bind("load", function(){
       $($timerDiv).slideDown(200);
       switch (shared.gameMode) {
         case "medium":
-        stopTimer();
+          stopTimer();
           timer = 45;
           ($($timer).text(timer));
         break;
         case "hard":
-        timer = 30;
-        ($($timer).text(timer));
+          stopTimer();
+          timer = 35;
+          ($($timer).text(timer));
         break;
       }
     }
@@ -326,7 +328,8 @@ $(window).bind("load", function(){
     }
 
     return {
-      startGame: startGame
+      startGame: startGame,
+      mediumCards: mediumCards
     };
 
 
@@ -343,20 +346,19 @@ $(window).bind("load", function(){
       "assets/images/cat-pizza.jpg",
       "assets/images/cat-wink.jpg",
     ],
-    pairsLeft = 12,
+    pairsLeft,
     allCards;
 
     function startGame() {
+      allCards = hardCards
+      .concat(mediumMode.mediumCards)
+      .concat(shared.allCards);
       shared.startGame();
       shared.setPairsLeft(12);
-      addCards();
-    }
-
-    function addCards() {
-      allCards = hardCards.concat(shared.allCards);
       shared.shuffle(allCards);
       shared.createCards(allCards);
       shared.setGameMode("hard");
+      shared.showTimer();
     }
 
     return {
@@ -364,7 +366,7 @@ $(window).bind("load", function(){
     };
 
 
-  })(); // Ends mediumMode
+  })(); // Ends hardMode
 
   shared.setUpResetButton();
 
