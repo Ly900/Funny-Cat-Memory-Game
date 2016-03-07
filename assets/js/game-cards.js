@@ -42,7 +42,9 @@ $(window).bind("load", function(){
     $timer = $("#timer"),
     timer,
     time,
-    $gameDir = $(".game-directions");
+    $gameDir = $(".game-directions"),
+    $seconds = $("#seconds"),
+    seconds;
 
     function clearClickedCardsArray() {
       shared.clickedCards = [];
@@ -213,8 +215,10 @@ $(window).bind("load", function(){
         break;
         case "hard":
           stopTimer();
-          timer = 35;
-          ($($timer).text(timer));
+          timer = "00";
+          seconds = 0 + ":";
+          $timer.text(timer);
+          $seconds.text(seconds);
         break;
       }
     }
@@ -224,13 +228,28 @@ $(window).bind("load", function(){
     }
 
     function startTimer() {
-      time = setInterval(function() {
-        timer--;
-        $($timer).text(timer);
-        if (timer === 0) {
-          timeUp();
-        }
-      }, 1000)
+      switch (shared.gameMode) {
+        case "medium":
+          time = setInterval(function() {
+            timer--;
+            $($timer).text(timer);
+            if (timer === 0) {
+              timeUp();
+            }
+          }, 1000);
+        break;
+        case "hard":
+          seconds = 1;
+          time = setInterval(function() {
+            timer++;
+            $($timer).text(timer);
+            if (timer === 100 ) {
+              timer = 0;
+              $seconds.text(seconds++ + ":");
+            }
+          }, 10);
+        break;
+      }
     }
 
     function stopTimer() {

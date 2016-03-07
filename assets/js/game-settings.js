@@ -11,7 +11,7 @@ $(document).ready(function() {
     function initHoverEffect() {
       liMode.on("mouseover", removeHoverFromOthers);
     };
-    function removeHoverFromOthers(event) {
+    function removeHoverFromOthers() {
       gameModeUl.children(".hoverLi").removeClass("hoverLi");
       addHoverEffect();
     };

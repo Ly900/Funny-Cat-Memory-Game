@@ -190,7 +190,7 @@ div.info-game-container {
       &.game-timer {
         text-align: center;
         display: none;
-        span#timer {
+        #timer, #seconds {
           font-size: 3em;
           color:  green;
         }
