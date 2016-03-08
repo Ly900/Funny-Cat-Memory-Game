@@ -211,12 +211,12 @@ $(window).bind("load", function(){
         case "medium":
           stopTimer();
           timer = 45;
-          ($($timer).text(timer));
+          $timer.text(timer);
         break;
         case "hard":
           stopTimer();
           timer = "00";
-          seconds = 0 + ":";
+          seconds = "00" + ":";
           $timer.text(timer);
           $seconds.text(seconds);
         break;
@@ -232,24 +232,36 @@ $(window).bind("load", function(){
         case "medium":
           time = setInterval(function() {
             timer--;
-            $($timer).text(timer);
             if (timer === 0) {
               timeUp();
             }
+            $($timer).text(timer);
           }, 1000);
         break;
         case "hard":
+          timer = 0;
           seconds = 1;
           time = setInterval(function() {
             timer++;
-            $($timer).text(timer);
+            if (timer < 10) {
+              timer = "0" + timer;
+            }
             if (timer === 100 ) {
               timer = 0;
-              $seconds.text(seconds++ + ":");
+              seconds++;
             }
+            if (seconds < 10) {
+              $seconds.text("0" + seconds + ":");
+              console.log(seconds);
+            } else {
+              $seconds.text(seconds + ":");
+            }
+            $timer.text(timer);
+
           }, 10);
         break;
       }
+      $("#stop").on("click", stopTimer);
     }
 
     function stopTimer() {
@@ -400,5 +412,6 @@ $(window).bind("load", function(){
   $(shared.$hardGame).on("click", function(event) {
     hardMode.startGame();
   });
+
 
 }); // Ends window.bind
