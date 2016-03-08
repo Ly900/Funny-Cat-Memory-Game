@@ -194,6 +194,9 @@ div.info-game-container {
           font-size: 3em;
           color:  green;
         }
+        #minutes, #seconds {
+          display: none;
+        }
       }
     }
 

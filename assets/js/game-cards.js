@@ -44,7 +44,9 @@ $(window).bind("load", function(){
     time,
     $gameDir = $(".game-directions"),
     $seconds = $("#seconds"),
-    seconds;
+    seconds,
+    $minutes = $("#minutes"),
+    minutes;
 
     function clearClickedCardsArray() {
       shared.clickedCards = [];
@@ -217,8 +219,10 @@ $(window).bind("load", function(){
           stopTimer();
           timer = "00";
           seconds = "00" + ":";
-          $timer.text(timer);
-          $seconds.text(seconds);
+          minutes = "00" + ":";
+          $timer.show().text(timer);
+          $seconds.show().text(seconds);
+          $minutes.show().text(minutes);
         break;
       }
     }
@@ -240,11 +244,14 @@ $(window).bind("load", function(){
         break;
         case "hard":
           timer = 0;
-          seconds = 1;
+          seconds = 0;
+          minutes = 0;
           time = setInterval(function() {
             timer++;
             if (timer < 10) {
-              timer = "0" + timer;
+              $timer.text("0" + timer);
+            } else {
+              $timer.text(timer);
             }
             if (timer === 100 ) {
               timer = 0;
@@ -252,16 +259,21 @@ $(window).bind("load", function(){
             }
             if (seconds < 10) {
               $seconds.text("0" + seconds + ":");
-              console.log(seconds);
             } else {
               $seconds.text(seconds + ":");
             }
-            $timer.text(timer);
-
+            if (seconds === 60) {
+              seconds = 0;
+              minutes++;
+            }
+            if (minutes < 10) {
+              $minutes.text("0" + minutes + ":");
+            } else {
+              $minutes.text(minutes + ":");
+            }
           }, 10);
         break;
       }
-      $("#stop").on("click", stopTimer);
     }
 
     function stopTimer() {
@@ -307,7 +319,9 @@ $(window).bind("load", function(){
       $gameDir: $gameDir,
       hideDirections: hideDirections,
       showDirections: showDirections,
-      stopTimer: stopTimer
+      stopTimer: stopTimer,
+      $minutes: $minutes,
+      $seconds: $seconds
     };
 
   })();
@@ -356,6 +370,7 @@ $(window).bind("load", function(){
       shared.createCards(allCards);
       shared.setGameMode("medium");
       shared.showTimer();
+      shared.$minutes.add(shared.$seconds).hide();
     }
 
     return {
