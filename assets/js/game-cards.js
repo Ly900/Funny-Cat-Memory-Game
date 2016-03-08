@@ -186,6 +186,7 @@ $(window).bind("load", function(){
       var expert = "an Expert Cat Finder!",
           novice = "a Novice Cat Finder. Try again.",
           beginner = "a Beginner Cat Finder. Try again!",
+          minuteUnit,
           clicks = clickCounter,
           rankAlert = "Great job-- you've won the game! \nRank: ";
       switch (shared.gameMode) {
@@ -206,7 +207,8 @@ $(window).bind("load", function(){
         break;
         case "hard":
           seconds <= 45 ? rank = expert : seconds <= 55 ? rank = novice : rank = beginner;
-          rankAlert += rank + "\nIt took you " + minutes + " minutes" + " and " + seconds + "." + timer + " seconds to find all cats!";
+          minutes === 1 ? minuteUnit = "minute" : minuteUnit = "minutes";
+          rankAlert += rank + "\nIt took you " + minutes + " " + minuteUnit + " and " + seconds + "." + timer + " seconds to find all cats!";
           alert(rankAlert);
         break;
       }
