@@ -186,8 +186,8 @@ $(window).bind("load", function(){
       var expert = "an Expert Cat Finder!",
           novice = "a Novice Cat Finder. Try again.",
           beginner = "a Beginner Cat Finder. Try again!",
-          clicks = shared.clickCounter,
-          rankAlert = "Great job-- you've won the game! \nRank: "
+          clicks = clickCounter,
+          rankAlert = "Great job-- you've won the game! \nRank: ";
       switch (shared.gameMode) {
         case "easy":
           clicks <= 26 ? rank = expert : clicks <= 36 ? rank = novice : rank = beginner;
@@ -197,12 +197,17 @@ $(window).bind("load", function(){
           clicks <= 34 ? rank = expert : clicks <= 44 ? rank = novice : rank = beginner;
           if (rank === expert) {
             rankAlert += rank +
-            "\nTime left: " + timer + " seconds. \nBravo!";
+            "\nTime left: " + timer + " seconds.";
           } else {
             rankAlert += rank +
-            "\nTime left: " + timer + " seconds. \nBravo! \nBut can you become an Expert Cat Finder?";
+            "\nTime left: " + timer + " seconds.";
           }
             alert(rankAlert);
+        break;
+        case "hard":
+          seconds <= 45 ? rank = expert : seconds <= 55 ? rank = novice : rank = beginner;
+          rankAlert += rank + "\nIt took you " + minutes + " minutes, " + seconds + " seconds " + "and " + timer + " hundredths of a second to find all cats!";
+          alert(rankAlert);
         break;
       }
     } // Ends getRank()
