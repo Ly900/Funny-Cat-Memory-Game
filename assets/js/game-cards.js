@@ -206,7 +206,7 @@ $(window).bind("load", function(){
         break;
         case "hard":
           seconds <= 45 ? rank = expert : seconds <= 55 ? rank = novice : rank = beginner;
-          rankAlert += rank + "\nIt took you " + minutes + " minutes, " + seconds + " seconds " + "and " + timer + " hundredths of a second to find all cats!";
+          rankAlert += rank + "\nIt took you " + minutes + " minutes" + " and " + seconds + "." + timer + " seconds to find all cats!";
           alert(rankAlert);
         break;
       }
