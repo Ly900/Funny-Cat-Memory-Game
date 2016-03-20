@@ -5,6 +5,27 @@ $(window).bind("load", function(){
   SHARED
   ******************************************/
 
+  var $overlay = $("<div id='overlay'></div>");
+  var $rank = $("<div id='rank-message'></div>");
+  $overlay.append($rank);
+  $("body").append($overlay);
+  $("#overlay-button").on("click", function(event) {
+    $overlay.css("display", "block");
+  });
+  $overlay.on("click", function(event) {
+    $(this).hide();
+  })
+
+  var overlay = (function(){
+
+
+
+    return {
+
+    };
+
+  })(); //ends overlay module
+
   var shared = (function() {
     var allCards = [
     "assets/images/annoyed-cat.jpg",
@@ -175,7 +196,7 @@ $(window).bind("load", function(){
     }
 
     function checkforWin() {
-      if (shared.pairsLeft === 0) {
+      if (shared.pairsLeft === 7) {
         $($pairsFound).html("<span class='green'>All of them!<span>");
         stopTimer();
         getRank(shared.gameMode);
@@ -183,16 +204,18 @@ $(window).bind("load", function(){
     }
 
     function getRank() {
-      var expert = "an Expert Cat Finder!",
-          novice = "a Novice Cat Finder. Try again.",
-          beginner = "a Beginner Cat Finder. Try again!",
+      var expert = "<p class='rank'>Rank: Expert Cat Finder!</p>",
+          novice = "<p class='rank'>Rank: Novice Cat Finder. Try again.</p>",
+          beginner = "<p class='rank'>Rank: Beginner Cat Finder. Try again!</p>",
           minuteUnit,
           clicks = clickCounter,
-          rankAlert = "Great job-- you've won the game! \nRank: ";
+          rankAlert = "<p class='alert'>Great job-- you've won the game!</p>";
       switch (shared.gameMode) {
         case "easy":
           clicks <= 26 ? rank = expert : clicks <= 36 ? rank = novice : rank = beginner;
-          alert(rankAlert + rank);
+          // alert(rankAlert + rank);
+          $overlay.show();
+          $rank.html(rankAlert + rank);
           break;
         case "medium":
           clicks <= 34 ? rank = expert : clicks <= 44 ? rank = novice : rank = beginner;
