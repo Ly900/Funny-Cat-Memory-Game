@@ -179,7 +179,9 @@ $(window).bind("load", function(){
     }
 
     function checkforWin() {
-      if (shared.pairsLeft === 7) {
+      // shared.pairsLeft = 0;
+      // shared.clickCounter = 25;
+      if (shared.pairsLeft === 0) {
         $($pairsFound).html("<span class='green'>All of them!<span>");
         stopTimer();
         getRank(shared.gameMode);
@@ -208,19 +210,16 @@ $(window).bind("load", function(){
           <p class='rank-word'>(Expert Cat Finder)</p><br/>\
           </p>",
           minuteUnit,
-          clicks = clickCounter;
+          clicks = shared.clickCounter;
 
-        $overlay.append($rankMessage);
-        $("body").append($overlay);
-
-        $overlay.on("click", function(event) {
-          $(this).hide();
-        });
+          addOverlay($overlay, $rankMessage);
 
       switch (shared.gameMode) {
         case "easy":
-          clicks <= 26 ? rank = expert : clicks <= 36 ? rank = novice : rank = expert;
+          clicks <= 26 ? rank = expert : clicks <= 36 ? rank = novice : rank = beginner;
           // alert(rankAlert + rank);
+          console.log(rank);
+          console.log(clicks);
           $overlay.show();
           $rankMessage.html(gameOver + rank);
           if (rank === beginner) {
@@ -230,7 +229,6 @@ $(window).bind("load", function(){
           } else {
             $("p.rank-word").css("color", "blue");
           }
-
           break;
         case "medium":
           clicks <= 34 ? rank = expert : clicks <= 44 ? rank = novice : rank = beginner;
@@ -251,6 +249,15 @@ $(window).bind("load", function(){
         break;
       }
     } // Ends getRank()
+
+    function addOverlay($overlay, $rankMessage) {
+      $overlay.append($rankMessage);
+      $("body").append($overlay);
+
+      $overlay.on("click", function(event) {
+        $(this).hide();
+      });
+    }
 
     function showTimer() {
       $($timerDiv).slideDown(200);
