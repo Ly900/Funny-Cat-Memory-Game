@@ -189,13 +189,23 @@ $(window).bind("load", function(){
     function getRank() {
       var $overlay = $("<div id='overlay'></div>"),
           $rankMessage = $("<div id='rank-message'></div>"),
-          // expert = "<p class='rank'>Rank: Expert Cat Finder!</p>",
-          // novice = "<p class='rank'>Rank: Novice Cat Finder. Try again.</p>",
           gameOver = "<p class='game-over'>Game Over</p>",
           beginner = "<p class='rank-star'>\
           <img src='assets/images/star-icon.png' class='star-icon'/><br/>\
-          <p class='rank-word'>(Beginner)</p><br/>\
+          <p class='rank-word'>(Beginner Cat Finder)</p><br/>\
           Try again!\
+          </p>",
+          novice = "<p class='rank-star'>\
+          <img src='assets/images/star-icon.png' class='star-icon'/>\
+          <img src='assets/images/star-icon.png' class='star-icon'/><br/>\
+          <p class='rank-word'>(Novice Cat Finder)</p><br/>\
+          Try again!\
+          </p>",
+          expert = "<p class='rank-star'>\
+          <img src='assets/images/star-icon.png' class='star-icon'/>\
+          <img src='assets/images/star-icon.png' class='star-icon'/>\
+          <img src='assets/images/star-icon.png' class='star-icon'/><br/>\
+          <p class='rank-word'>(Expert Cat Finder)</p><br/>\
           </p>",
           minuteUnit,
           clicks = clickCounter;
@@ -209,11 +219,18 @@ $(window).bind("load", function(){
 
       switch (shared.gameMode) {
         case "easy":
-          clicks <= 26 ? rank = expert : clicks <= 36 ? rank = novice : rank = beginner;
+          clicks <= 26 ? rank = expert : clicks <= 36 ? rank = novice : rank = expert;
           // alert(rankAlert + rank);
           $overlay.show();
           $rankMessage.html(gameOver + rank);
-          $("p.rank-word").css("color", "red");
+          if (rank === beginner) {
+            $("p.rank-word").css("color", "red");
+          } else if (rank === novice) {
+            $("p.rank-word").css("color", "green");
+          } else {
+            $("p.rank-word").css("color", "blue");
+          }
+
           break;
         case "medium":
           clicks <= 34 ? rank = expert : clicks <= 44 ? rank = novice : rank = beginner;
