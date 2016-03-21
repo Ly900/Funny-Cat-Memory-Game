@@ -5,26 +5,9 @@ $(window).bind("load", function(){
   SHARED
   ******************************************/
 
-  var $overlay = $("<div id='overlay'></div>");
-  var $rank = $("<div id='rank-message'></div>");
-  $overlay.append($rank);
-  $("body").append($overlay);
   $("#overlay-button").on("click", function(event) {
     $overlay.css("display", "block");
   });
-  $overlay.on("click", function(event) {
-    $(this).hide();
-  })
-
-  var overlay = (function(){
-
-
-
-    return {
-
-    };
-
-  })(); //ends overlay module
 
   var shared = (function() {
     var allCards = [
@@ -204,18 +187,33 @@ $(window).bind("load", function(){
     }
 
     function getRank() {
-      var expert = "<p class='rank'>Rank: Expert Cat Finder!</p>",
-          novice = "<p class='rank'>Rank: Novice Cat Finder. Try again.</p>",
-          beginner = "<p class='rank'>Rank: Beginner Cat Finder. Try again!</p>",
+      var $overlay = $("<div id='overlay'></div>"),
+          $rankMessage = $("<div id='rank-message'></div>"),
+          // expert = "<p class='rank'>Rank: Expert Cat Finder!</p>",
+          // novice = "<p class='rank'>Rank: Novice Cat Finder. Try again.</p>",
+          gameOver = "<p class='game-over'>Game Over</p>",
+          beginner = "<p class='rank-star'>\
+          <img src='assets/images/star-icon.png' class='star-icon'/><br/>\
+          <p class='rank-word'>(Beginner)</p><br/>\
+          Try again!\
+          </p>",
           minuteUnit,
-          clicks = clickCounter,
-          rankAlert = "<p class='alert'>Great job-- you've won the game!</p>";
+          clicks = clickCounter;
+
+        $overlay.append($rankMessage);
+        $("body").append($overlay);
+
+        $overlay.on("click", function(event) {
+          $(this).hide();
+        });
+
       switch (shared.gameMode) {
         case "easy":
           clicks <= 26 ? rank = expert : clicks <= 36 ? rank = novice : rank = beginner;
           // alert(rankAlert + rank);
           $overlay.show();
-          $rank.html(rankAlert + rank);
+          $rankMessage.html(gameOver + rank);
+          $("p.rank-word").css("color", "red");
           break;
         case "medium":
           clicks <= 34 ? rank = expert : clicks <= 44 ? rank = novice : rank = beginner;

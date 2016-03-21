@@ -67,17 +67,23 @@ body {
     text-align: center;
     background-color: white;
     border-radius: 5px;
-    p.alert,
-    p.rank {
+    p.game-over {
+      font: {
+        size: 3em;
+        variant: small-caps;
+      }
+    }
+    p.rank-word,
+    p.rank-star {
       font-size: 2em;
     }
-    p.alert {
+    p.game-over {
       background-color: darken($lightOrange, 10%);
       color: white;
       text-shadow: 1px 1px 5px black;
     }
-    p.rank {
-      color: blue;
+    p.beginner {
+      color: red;
     }
   }
 }
@@ -170,10 +176,6 @@ div.info-game-container {
       img#game-directions{
         width: 2.5em;
       }
-      img#star-icon,
-      img#clock-icon {
-        width: 2em;
-      }
       &.game-mode {
         font-variant: small-caps;
         text-align: center;
@@ -252,6 +254,10 @@ div.info-game-container {
     size: 1em;
     weight: 700;
   }
+}
+img.star-icon,
+img#clock-icon {
+  width: 2em;
 }
 /**********************************************
 GAME CARDS
