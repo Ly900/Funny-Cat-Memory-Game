@@ -180,7 +180,7 @@ $(window).bind("load", function(){
 
     function checkforWin() {
       // shared.pairsLeft = 0;
-      // shared.clickCounter = 25;
+      // shared.clickCounter = 50;
       if (shared.pairsLeft === 0) {
         $($pairsFound).html("<span class='green'>All of them!<span>");
         stopTimer();
@@ -212,14 +212,12 @@ $(window).bind("load", function(){
           minuteUnit,
           clicks = shared.clickCounter;
 
-          addOverlay($overlay, $rankMessage);
+          appendOverlay($overlay, $rankMessage);
 
       switch (shared.gameMode) {
         case "easy":
           clicks <= 26 ? rank = expert : clicks <= 36 ? rank = novice : rank = beginner;
           // alert(rankAlert + rank);
-          console.log(rank);
-          console.log(clicks);
           $overlay.show();
           $rankMessage.html(gameOver + rank);
           if (rank === beginner) {
@@ -232,14 +230,15 @@ $(window).bind("load", function(){
           break;
         case "medium":
           clicks <= 34 ? rank = expert : clicks <= 44 ? rank = novice : rank = beginner;
-          if (rank === expert) {
-            rankAlert += rank +
-            "\nTime left: " + timer + " seconds.";
+          $overlay.show();
+          $rankMessage.html(gameOver + rank + "Time left: " + timer + " seconds.");
+          if (rank === beginner) {
+            $("p.rank-word").css("color", "red");
+          } else if (rank === novice) {
+            $("p.rank-word").css("color", "green");
           } else {
-            rankAlert += rank +
-            "\nTime left: " + timer + " seconds.";
+            $("p.rank-word").css("color", "blue");
           }
-            alert(rankAlert);
         break;
         case "hard":
           seconds <= 45 && minutes < 1 ? rank = expert : seconds <= 55 && minutes < 1 ? rank = novice : rank = beginner;
@@ -250,7 +249,7 @@ $(window).bind("load", function(){
       }
     } // Ends getRank()
 
-    function addOverlay($overlay, $rankMessage) {
+    function appendOverlay($overlay, $rankMessage) {
       $overlay.append($rankMessage);
       $("body").append($overlay);
 
