@@ -49,6 +49,12 @@ body {
     size: cover;
   }
 }
+
+.github-fork-ribbon:before {
+  padding: 1em 0;
+  background-color: #FFA500;
+}
+
 #overlay {
   background: rgba(0, 0, 0, 0.8);
   position: fixed;
@@ -314,7 +320,37 @@ div.image-div {
     display: none;
   }
 }
-
+/**********************************************
+DEVELOPER INFO
+**********************************************/
+div.developer-info {
+  width: 100%;
+  font-weight: 200;
+  text-align: center;
+  background: RGBA(36, 95, 146, 0.5);
+  padding: 2%;
+  color: #eee;
+  margin-top: 2%;
+  a {
+    color: #056298;
+    text-decoration: none;
+    display: inline-block;
+    @include prefix(transition, transform 1s, webkit moz o);
+    &:hover {
+      color: darken(#056298, 10%);
+      font-weight: bold;
+      @include prefix(transform, rotate(1turn), webkit ms o moz);
+    }
+  }
+  p {
+    display: block;
+    span.date {
+      color: #056298;
+      text-decoration: none;
+      display: inline-block;
+    }
+  }
+}
 /**********************************************
 MEDIA QUERY - MEDIUM > 768px
 **********************************************/
