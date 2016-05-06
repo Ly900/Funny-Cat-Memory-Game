@@ -181,7 +181,7 @@ $(window).bind("load", function(){
     function checkforWin() {
       // shared.pairsLeft = 0;
       // shared.clickCounter = 50;
-      if (shared.pairsLeft === 0) {
+      if (shared.pairsLeft === 11) {
         $($pairsFound).html("<span class='green'>All of them!<span>");
         stopTimer();
         getRank(shared.gameMode);
@@ -243,8 +243,15 @@ $(window).bind("load", function(){
         case "hard":
           seconds <= 45 && minutes < 1 ? rank = expert : seconds <= 55 && minutes < 1 ? rank = novice : rank = beginner;
           minutes === 1 ? minuteUnit = "minute" : minuteUnit = "minutes";
-          rankAlert += rank + "\nIt took you " + minutes + " " + minuteUnit + " and " + seconds + "." + timer + " seconds to find all cats!";
-          alert(rankAlert);
+          $overlay.show();
+          $rankMessage.html(gameOver + rank + "It took you " + minutes + " minutes and " + seconds + "." + timer + " seconds to find all the cats!");
+          if (rank === beginner) {
+            $("p.rank-word").css("color", "red");
+          } else if (rank === novice) {
+            $("p.rank-word").css("color", "green");
+          } else {
+            $("p.rank-word").css("color", "blue");
+          }
         break;
       }
     } // Ends getRank()
