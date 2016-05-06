@@ -49,12 +49,26 @@ body {
     size: cover;
   }
 }
-
-.github-fork-ribbon:before {
-  padding: 1em 0;
-  background-color: #FFA500;
+/**********************************************
+GITHUB RIBBON
+**********************************************/
+.github-fork-ribbon {
+  left: 0;
+  &:before {
+    padding: 1em 0;
+    background-color: #FFA500;
+  }
+  &:before,
+  &:after {
+    position: absolute;
+    display: block;
+    width: 15.38em;
+    height: 1.54em;
+    top: 2.8em;
+    left: -3.7em;
+    @include prefix(transform, rotate(-45deg), webkit moz o);
+  }
 }
-
 #overlay {
   background: rgba(0, 0, 0, 0.8);
   position: fixed;
