@@ -181,7 +181,7 @@ $(window).bind("load", function(){
     function checkforWin() {
       // shared.pairsLeft = 0;
       // shared.clickCounter = 50;
-      if (shared.pairsLeft === 0) {
+      if (shared.pairsLeft === 7) {
         $($pairsFound).html("<span class='green'>All of them!<span>");
         stopTimer();
         getRank(shared.gameMode);
@@ -190,8 +190,8 @@ $(window).bind("load", function(){
 
     function getRank() {
       var $overlay = $("<div id='overlay'></div>"),
-          $rankMessage = $("<div id='rank-message'></div>"),
-          gameOver = "<p class='game-over'>Game Over</p>",
+          $innerMessage = $("<div id='inner-message'></div>"),
+          gameOver = "<p class='game-over'>Game Over</p>";
           beginner = "<p class='rank-star'>\
           <img src='assets/images/star-icon.png' class='star-icon'/><br/>\
           <p class='rank-word'>(Beginner Cat Finder)</p><br/>\
@@ -207,20 +207,19 @@ $(window).bind("load", function(){
           <img src='assets/images/star-icon.png' class='star-icon'/>\
           <img src='assets/images/star-icon.png' class='star-icon'/>\
           <img src='assets/images/star-icon.png' class='star-icon'/><br/>\
-          <p class='rank-word'>(Expert Cat Finder)</p><br/>\
-          </p>",
+          <p class='rank-word'>(Expert Cat Finder)</p><br/>",
           minuteUnit,
           clicks = shared.clickCounter;
 
-          appendOverlay($overlay, $rankMessage);
+          appendOverlay($overlay, $innerMessage);
 
       switch (shared.gameMode) {
         case "easy":
           clicks <= 26 ? rank = expert : clicks <= 36 ? rank = novice : rank = beginner;
-          // alert(rankAlert + rank);
           $overlay.show();
-          $rankMessage.html(gameOver + rank);
+          $innerMessage.html(gameOver + rank);
           if (rank === beginner) {
+            rank = beginner;
             $("p.rank-word").css("color", "red");
           } else if (rank === novice) {
             $("p.rank-word").css("color", "green");
@@ -231,7 +230,7 @@ $(window).bind("load", function(){
         case "medium":
           clicks <= 34 ? rank = expert : clicks <= 44 ? rank = novice : rank = beginner;
           $overlay.show();
-          $rankMessage.html(gameOver + rank + "Time left: " + timer + " seconds.");
+          $innerMessage.html(gameOver + rank + "<span class='time-left'>Time left: " + timer + " seconds.</span>");
           if (rank === beginner) {
             $("p.rank-word").css("color", "red");
           } else if (rank === novice) {
@@ -244,7 +243,7 @@ $(window).bind("load", function(){
           seconds <= 45 && minutes < 1 ? rank = expert : seconds <= 55 && minutes < 1 ? rank = novice : rank = beginner;
           minutes === 1 ? minuteUnit = "minute" : minuteUnit = "minutes";
           $overlay.show();
-          $rankMessage.html(gameOver + rank + "It took you " + minutes + " minutes and " + seconds + "." + timer + " seconds to find all the cats!");
+          $innerMessage.html(gameOver + rank + "It took you " + minutes + " minutes and " + seconds + "." + timer + " seconds to find all the cats!");
           if (rank === beginner) {
             $("p.rank-word").css("color", "red");
           } else if (rank === novice) {
@@ -256,8 +255,8 @@ $(window).bind("load", function(){
       }
     } // Ends getRank()
 
-    function appendOverlay($overlay, $rankMessage) {
-      $overlay.append($rankMessage);
+    function appendOverlay($overlay, $innerMessage) {
+      $overlay.append($innerMessage);
       $("body").append($overlay);
 
       $overlay.on("click", function(event) {
@@ -270,7 +269,7 @@ $(window).bind("load", function(){
       switch (shared.gameMode) {
         case "medium":
           stopTimer();
-          timer = 45;
+          timer = 2;
           $timer.text(timer);
         break;
         case "hard":

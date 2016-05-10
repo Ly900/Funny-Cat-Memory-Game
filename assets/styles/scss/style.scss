@@ -77,12 +77,13 @@ GITHUB RIBBON
   top: 0;
   left: 0;
   display: none;
-  #rank-message {
+  #inner-message {
     position: absolute;
     width: 75%;
     height: auto;
-    top: 10%;
+    top: 20%;
     left: 12.5%;
+    padding: 10px;
     margin: 0 auto;
     text-align: center;
     background-color: white;
