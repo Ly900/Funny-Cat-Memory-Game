@@ -50,7 +50,26 @@ $(window).bind("load", function(){
     $seconds = $("#seconds"),
     seconds,
     $minutes = $("#minutes"),
-    minutes;
+    minutes,
+    $overlay = $("<div id='overlay'></div>"),
+    $innerMessage = $("<div id='inner-message'></div>"),
+    gameOver = "<p class='game-over'>Game Over</p>",
+    beginner = "<p class='rank-star'>\
+    <img src='assets/images/star-icon.png' class='star-icon'/><br/>\
+    <p class='rank-word'>(Beginner Cat Finder)</p><br/>\
+    Try again!\
+    </p>",
+    novice = "<p class='rank-star'>\
+    <img src='assets/images/star-icon.png' class='star-icon'/>\
+    <img src='assets/images/star-icon.png' class='star-icon'/><br/>\
+    <p class='rank-word'>(Novice Cat Finder)</p><br/>\
+    Try again!\
+    </p>",
+    expert = "<p class='rank-star'>\
+    <img src='assets/images/star-icon.png' class='star-icon'/>\
+    <img src='assets/images/star-icon.png' class='star-icon'/>\
+    <img src='assets/images/star-icon.png' class='star-icon'/><br/>\
+    <p class='rank-word'>(Expert Cat Finder)</p><br/>";
 
     function clearClickedCardsArray() {
       shared.clickedCards = [];
@@ -181,7 +200,7 @@ $(window).bind("load", function(){
     function checkforWin() {
       // shared.pairsLeft = 0;
       // shared.clickCounter = 50;
-      if (shared.pairsLeft === 7) {
+      if (shared.pairsLeft === 0) {
         $($pairsFound).html("<span class='green'>All of them!<span>");
         stopTimer();
         getRank(shared.gameMode);
@@ -189,26 +208,7 @@ $(window).bind("load", function(){
     }
 
     function getRank() {
-      var $overlay = $("<div id='overlay'></div>"),
-          $innerMessage = $("<div id='inner-message'></div>"),
-          gameOver = "<p class='game-over'>Game Over</p>";
-          beginner = "<p class='rank-star'>\
-          <img src='assets/images/star-icon.png' class='star-icon'/><br/>\
-          <p class='rank-word'>(Beginner Cat Finder)</p><br/>\
-          Try again!\
-          </p>",
-          novice = "<p class='rank-star'>\
-          <img src='assets/images/star-icon.png' class='star-icon'/>\
-          <img src='assets/images/star-icon.png' class='star-icon'/><br/>\
-          <p class='rank-word'>(Novice Cat Finder)</p><br/>\
-          Try again!\
-          </p>",
-          expert = "<p class='rank-star'>\
-          <img src='assets/images/star-icon.png' class='star-icon'/>\
-          <img src='assets/images/star-icon.png' class='star-icon'/>\
-          <img src='assets/images/star-icon.png' class='star-icon'/><br/>\
-          <p class='rank-word'>(Expert Cat Finder)</p><br/>",
-          minuteUnit,
+          var minuteUnit,
           clicks = shared.clickCounter;
 
           appendOverlay($overlay, $innerMessage);
@@ -269,7 +269,7 @@ $(window).bind("load", function(){
       switch (shared.gameMode) {
         case "medium":
           stopTimer();
-          timer = 2;
+          timer = 45;
           $timer.text(timer);
         break;
         case "hard":
@@ -338,7 +338,13 @@ $(window).bind("load", function(){
     }
 
     function timeUp() {
-      alert("Sorry! Time's up! You were able to find " + shared.pairsFound + " matching pairs. Try again!");
+      beginner = "<p class='rank-star'>\
+      <img src='assets/images/star-icon.png' class='star-icon'/><br/>\
+      <p class='rank-word'>(Beginner Cat Finder)</p><br/>\
+      </p>";
+      $overlay.show();
+      $innerMessage.html(gameOver + beginner + "Sorry! Time's up! You were able to find " + shared.pairsFound + " matching pairs.");
+      appendOverlay($overlay, $innerMessage);
       $("div.image-div").unbind("click").on("click", function(event) {
         alert("Nice try! Please reset the game or choose a new mode.");
       })

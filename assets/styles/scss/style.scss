@@ -215,6 +215,21 @@ div.info-game-container {
         }
       }
       &.game-score {
+        ul > li:first-child {
+          position: relative;
+          span.ranking-info {
+            @include prefix(transition, transform .5s, webkit moz o);
+            position: absolute;
+            right: 10%;
+            top: 20%;
+            font-weight: 500;
+            letter-spacing: 2px;
+            &:hover {
+              @include prefix(transform, scale(1.3), webkit ms o moz);
+              cursor: pointer;
+            }
+          }
+        }
         #num-clicks,
         #pairs-found,
         #pairs-left {
