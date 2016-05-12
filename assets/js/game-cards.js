@@ -5,11 +5,6 @@ $(window).bind("load", function(){
   SHARED
   ******************************************/
 
-  $("body").on("click", function(event){
-    $("#overlay").css("display", "none");
-    console.log("clicked");
-  });
-
   var shared = (function() {
     var allCards = [
     "assets/images/annoyed-cat.jpg",
@@ -263,6 +258,10 @@ $(window).bind("load", function(){
       $overlay.on("click", function(event) {
         $(this).hide();
       });
+
+      $innerMessage.on("click", function(event){
+        event.stopPropagation();
+      });
     }
 
     function showTimer() {
@@ -387,7 +386,8 @@ $(window).bind("load", function(){
       $minutes: $minutes,
       $seconds: $seconds,
       $overlay: $overlay,
-      $innerMessage: $innerMessage
+      $innerMessage: $innerMessage,
+      appendOverlay: appendOverlay
     };
 
   })();
@@ -489,11 +489,23 @@ $(window).bind("load", function(){
 
     function openRankingDiv() {
       $rankingInfoLink.on("click", function(event){
-        shared.$innerMessage.html("hey");
-        shared.$overlay.show().append(shared.$innerMessage);
+        shared.$overlay.append(shared.$innerMessage).show();
+        shared.$innerMessage.html("<div>hey</div>");
         $("body").append(shared.$overlay);
       });
+      closeRankingDiv();
     }
+
+    function closeRankingDiv() {
+      shared.$overlay.on("click", function(event){
+        $(this).hide();
+      });
+      shared.$innerMessage.on("click", function(event){
+        event.stopPropagation();
+      });
+    }
+
+
 
     return {
       openRankingDiv: openRankingDiv
