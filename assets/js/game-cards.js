@@ -5,10 +5,6 @@ $(window).bind("load", function(){
   SHARED
   ******************************************/
 
-  $("#overlay-button").on("click", function(event) {
-    $overlay.css("display", "block");
-  });
-
   var shared = (function() {
     var allCards = [
     "assets/images/annoyed-cat.jpg",
@@ -491,5 +487,9 @@ $(window).bind("load", function(){
     hardMode.startGame();
   });
 
+  /******************************************
+  RANKING INFO
+  ******************************************/
+  var $rankInfoLink = $("span.ranking-info");
 
 }); // Ends window.bind
