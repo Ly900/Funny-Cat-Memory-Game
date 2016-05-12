@@ -5,6 +5,11 @@ $(window).bind("load", function(){
   SHARED
   ******************************************/
 
+  $("body").on("click", function(event){
+    $("#overlay").css("display", "none");
+    console.log("clicked");
+  });
+
   var shared = (function() {
     var allCards = [
     "assets/images/annoyed-cat.jpg",
@@ -380,7 +385,9 @@ $(window).bind("load", function(){
       showDirections: showDirections,
       stopTimer: stopTimer,
       $minutes: $minutes,
-      $seconds: $seconds
+      $seconds: $seconds,
+      $overlay: $overlay,
+      $innerMessage: $innerMessage
     };
 
   })();
@@ -473,7 +480,30 @@ $(window).bind("load", function(){
 
   })(); // Ends hardMode
 
+  /******************************************
+  RANKING INFO
+  ******************************************/
+
+  var ranking = (function(){
+    var $rankingInfoLink = $("span.ranking-info");
+
+    function openRankingDiv() {
+      $rankingInfoLink.on("click", function(event){
+        shared.$innerMessage.html("hey");
+        shared.$overlay.show().append(shared.$innerMessage);
+        $("body").append(shared.$overlay);
+      });
+    }
+
+    return {
+      openRankingDiv: openRankingDiv
+    }
+
+  })();
+
+
   shared.setUpResetButton();
+  ranking.openRankingDiv();
 
   $(shared.$easyGame).on("click", function(event) {
     easyMode.startGame();
@@ -487,9 +517,6 @@ $(window).bind("load", function(){
     hardMode.startGame();
   });
 
-  /******************************************
-  RANKING INFO
-  ******************************************/
-  var $rankInfoLink = $("span.ranking-info");
+
 
 }); // Ends window.bind
