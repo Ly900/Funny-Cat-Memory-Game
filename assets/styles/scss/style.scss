@@ -2,6 +2,8 @@
 
 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,600,700,900);
 
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600,700);
+
 @mixin prefix($property, $value, $prefixes: ()) {
   @each $prefix in $prefixes {
     #{'-' + $prefix + '-' + $property}: $value;
@@ -25,6 +27,7 @@ $deepBlueColorRGBApart: 36, 95, 146;
 $deepBlueColorHEX: #205E94;
 $mainOrangeColor: #f6a517;
 $lightOrange: #F8B848;
+$kashmirBlueColor: #5A7389;
 
 html, body, header, div, img, h1, ul, ol, li, {
   margin: 0;
@@ -401,14 +404,14 @@ div#ranking-outer-overlay {
     height: 80%;
     background: #FFFFFF;
     border-radius: 5px;
+    padding: 1%;
+    font-family: "Open Sans", sans-serif;
     div.ranking-title-div {
       background-color: $mainOrangeColor;
-      width: 98%;
-      height: 15%;
-      margin: 1%;
+      width: 100%;
       border-radius: 5px;
-      padding: 1%;
       text-align: center;
+      margin-bottom: 1%;
       span.rankings {
         display: none;
         color: #FFFFFF;
@@ -416,8 +419,32 @@ div#ranking-outer-overlay {
         font-size: 2.5em;
       }
     }
-  }
+    div.key-div {
+      width: 100%;
+      margin: 0 auto;
+      div.icon-div {
+        width: 10%;
+        display: inline-block;
+        text-align: right;
+        img.icon-image {
+          max-width: 50%;
+          min-width: 40px;
+          padding: 3px;
+        }
+      }
+      div.icon-definition {
+        display: inline-block;
+        width: 88%;
+        margin-left: 1%;
+        font-size: .8em;
+        color: $kashmirBlueColor;
+        padding: 5px;
+      }
+    }
+  } // Ends inner div
 }
+
+
 /**********************************************
 MEDIA QUERY - MEDIUM > 768px
 **********************************************/
@@ -491,6 +518,9 @@ MEDIA QUERY - MEDIUM > 768px
     }
   }
 
+// div.key-div {
+//   width:
+// }
 
 
 } /* Ends media query for medium screens */
@@ -502,6 +532,42 @@ MEDIA QUERY - LARGE > 1116px
 
   header {
     text-align: right;
+  }
+
+}
+
+@media (max-width: 499px) {
+
+  div#ranking-outer-overlay div#ranking-inner-div {
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 0;
+      padding: 0;
+  }
+
+  div#ranking-outer-overlay div#ranking-inner-div div.key-div div.icon-definition {
+    font-size: .7em;
+    padding: 0;
+  }
+
+  div#ranking-outer-overlay div#ranking-inner-div div.key-div div.icon-div img.icon-image {
+    max-width: 100%;
+    min-width: auto;
+  }
+
+  div#ranking-outer-overlay div#ranking-inner-div div.key-div div.icon-div {
+    padding-left: 2%;
+  }
+
+}
+
+@media (max-width: 340px) {
+
+  div#ranking-outer-overlay div#ranking-inner-div div.key-div div.icon-definition {
+    font-size: .6em;
+    padding: 0;
   }
 
 }
