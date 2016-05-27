@@ -196,7 +196,7 @@ $(window).bind("load", function(){
     function checkforWin() {
       // shared.pairsLeft = 0;
       // shared.clickCounter = 50;
-      if (shared.pairsLeft === 0) {
+      if (shared.pairsLeft === 7) {
         $($pairsFound).html("<span class='green'>All of them!<span>");
         stopTimer();
         getRank(shared.gameMode);
@@ -214,6 +214,7 @@ $(window).bind("load", function(){
           clicks <= 26 ? rank = expert : clicks <= 36 ? rank = novice : rank = beginner;
           $overlay.show();
           $innerMessage.html(gameOver + rank);
+          rank = expert;
           if (rank === beginner) {
             rank = beginner;
             $("p.rank-word").css("color", "red");
@@ -485,22 +486,25 @@ $(window).bind("load", function(){
   ******************************************/
 
   var ranking = (function(){
-    var $rankingInfoLink = $("span.ranking-info");
+    var $rankingInfoLink = $("span.ranking-info"),
+        $rankingOverlay = $("#ranking-outer-overlay"),
+        $rankingOverlayInner = $("#ranking-inner-div"),
+        $rankHeading = $("span.rankings");
 
     function openRankingDiv() {
       $rankingInfoLink.on("click", function(event){
-        shared.$overlay.append(shared.$innerMessage).show();
-        shared.$innerMessage.html("<div>hey</div>");
-        $("body").append(shared.$overlay);
+        $rankingOverlay.show();
+        $rankHeading.fadeIn(1000);
       });
       closeRankingDiv();
     }
 
     function closeRankingDiv() {
-      shared.$overlay.on("click", function(event){
+      $rankingOverlay.on("click", function(event){
         $(this).hide();
+        $rankHeading.hide();
       });
-      shared.$innerMessage.on("click", function(event){
+      $rankingOverlayInner.on("click", function(event){
         event.stopPropagation();
       });
     }
