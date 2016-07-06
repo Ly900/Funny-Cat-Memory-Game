@@ -196,7 +196,7 @@ $(window).bind("load", function(){
     function checkforWin() {
       // shared.pairsLeft = 0;
       // shared.clickCounter = 50;
-      if (shared.pairsLeft === 7) {
+      if (shared.pairsLeft === 0) {
         $($pairsFound).html("<span class='green'>All of them!<span>");
         stopTimer();
         getRank(shared.gameMode);

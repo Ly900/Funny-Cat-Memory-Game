@@ -450,6 +450,23 @@ div#ranking-outer-overlay {
       position: absolute;
       top: 50%;
       left: 0;
+      padding: 3%;
+    }
+    .ranking-div {
+      width: 100%;
+      padding: 1% 0;
+      .ranking-row {
+        display: inline-block;
+        width: 23.33%;
+        color: darken($mainOrangeColor, 5%);
+        text: {
+          align: center;
+          transform: uppercase;
+        }
+        &:first-child {
+          width: 30%;
+        }
+      }
     }
   } // Ends inner div
 }
@@ -477,10 +494,7 @@ MEDIA QUERY - MEDIUM > 768px
       // border: 2px solid blue;
     }
   }
-  // h1:before {
-  //   content: "Width of 768px";
-  //   font-size: .3em;
-  // }
+
   body {
     width: 95%;
     max-width: 1200px;
