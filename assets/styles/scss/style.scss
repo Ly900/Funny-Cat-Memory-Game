@@ -448,9 +448,8 @@ div#ranking-outer-overlay {
       font-size: 3vw;
       font-weight: bold;
       position: absolute;
-      top: 50%;
+      // top: 50%;
       left: 0;
-      padding: 3%;
     }
     .ranking-div {
       width: 100%;
@@ -465,6 +464,24 @@ div#ranking-outer-overlay {
         }
         &:first-child {
           width: 30%;
+        }
+        .ranking-star {
+          max-width: 20%;
+          padding: 0 2px;
+        }
+        .ranking-name {
+          text-transform: none;
+          font-size: smaller;
+          padding: 5px;
+          &.expert {
+            color: #1294FB;
+          }
+          &.novice {
+            color: #2C912E;
+          }
+          &.beginner {
+            color: #F21100;
+          }
         }
       }
     }
