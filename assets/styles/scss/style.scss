@@ -485,8 +485,9 @@ div#ranking-outer-overlay {
           }
         }
       }
-      .rank-mouse-icon {
-        max-width: 80px;
+      .rank-mouse-icon,
+      .rank-clock-icon {
+        max-width: 35%;
       }
     }
   } // Ends inner div
