@@ -448,12 +448,13 @@ div#ranking-outer-overlay {
       font-size: 3vw;
       font-weight: bold;
       position: absolute;
-      // top: 50%;
       left: 0;
     }
     .ranking-div {
       width: 100%;
       padding: 1% 0;
+      @include prefix(display, flex, webkit ms);
+      @include prefix(align-items, center, webkit);
       .ranking-row {
         display: inline-block;
         width: 23.33%;
@@ -483,6 +484,9 @@ div#ranking-outer-overlay {
             color: #F21100;
           }
         }
+      }
+      .rank-mouse-icon {
+        max-width: 80px;
       }
     }
   } // Ends inner div
