@@ -432,6 +432,10 @@ div#ranking-outer-overlay {
         font-family: cursive;
         color: #FFE4C4;
         cursor: pointer;
+        transition: .5s;
+        &:hover {
+          color: darken(#FFE4C4, 10%);
+        }
       }
     }
     div.key-div {
@@ -481,6 +485,10 @@ div#ranking-outer-overlay {
         }
         &:first-child {
           width: 30%;
+        }
+        @include prefix(transition, transform .5s, webkit moz o);
+        &:hover {
+          @include prefix(transform, scale(1.2), webkit ms o moz);
         }
         .ranking-star {
           width: 20%;

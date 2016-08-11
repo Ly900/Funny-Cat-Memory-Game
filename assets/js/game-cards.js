@@ -507,7 +507,6 @@ $(window).bind("load", function(){
       $([$rankingOverlay, closeIcon])
       .each(function(){
         $(this).on("click", function(event){
-          console.log("clicked");
           $rankingOverlay.hide();
           $rankHeading.hide();
         });
