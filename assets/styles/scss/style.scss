@@ -410,6 +410,7 @@ div#ranking-outer-overlay {
     padding-bottom: 3%;
     font-family: "Open Sans", sans-serif;
     div.ranking-title-div {
+      position: relative;
       background-color: $mainOrangeColor;
       width: 100%;
       border-radius: 5px;
@@ -420,6 +421,16 @@ div#ranking-outer-overlay {
         color: #FFFFFF;
         text-shadow: 1px 1px 5px black;
         font-size: 2.5em;
+      }
+      span#close-icon {
+        position: absolute;
+        right: 0%;
+        top: 50%;
+        font-size: 2em;
+        transform: translate(-50%,-50%);
+        padding: 0 20px;
+        font-family: cursive;
+        color: #FFE4C4;
       }
     }
     div.key-div {
@@ -634,6 +645,9 @@ MEDIA QUERY - SMALL < 500px
       height: 100%;
       border-radius: 0;
       padding: 0;
+      div.ranking-div {
+        margin-top: 5%;
+      }
   }
 
   div#ranking-outer-overlay div#ranking-inner-div div.key-div div.icon-definition {
@@ -650,8 +664,16 @@ MEDIA QUERY - SMALL < 500px
     padding-left: 2%;
   }
 
+  div.ranking-div.levels {
+    font-size: 90%;
+  }
+
   .github-fork-ribbon {
     display: none;
+  }
+
+  div#ranking-outer-overlay div#ranking-inner-div div.ranking-title-div span#close-icon {
+    right: -5%;
   }
 
 }
@@ -661,6 +683,10 @@ MEDIA QUERY - SMALL < 500px
   div#ranking-outer-overlay div#ranking-inner-div div.key-div div.icon-definition {
     font-size: .6em;
     padding: 0;
+  }
+
+  div#ranking-outer-overlay div#ranking-inner-div div.ranking-title-div span#close-icon {
+    right: -10%;
   }
 
 }
