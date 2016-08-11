@@ -500,23 +500,25 @@ $(window).bind("load", function(){
     }
 
     function closeRankingDiv() {
-      $rankingOverlay.on("click", function(event){
-        $(this).hide();
-        $rankHeading.hide();
-      });
+      var closeIcon = $("#close-icon");
       $rankingOverlayInner.on("click", function(event){
         event.stopPropagation();
       });
+      $([$rankingOverlay, closeIcon])
+      .each(function(){
+        $(this).on("click", function(event){
+          console.log("clicked");
+          $rankingOverlay.hide();
+          $rankHeading.hide();
+        });
+      });
     }
-
-
 
     return {
       openRankingDiv: openRankingDiv
     }
 
   })();
-
 
   shared.setUpResetButton();
   ranking.openRankingDiv();
