@@ -121,10 +121,7 @@ MEDIA QUERY - SMALL - MOBILE
 div.wrapper {
   width: 100%;
   margin: 0 auto;
-  // background: RGBA(255, 255, 255, 0.8);
-  // background: RGBA(149, 121, 109, .5);
   padding-bottom: 3em;
-  // background: rgba(0, 0, 0, 0.2);
 }
 div.container-fluid {
   padding: 0;
@@ -148,7 +145,6 @@ header {
       weight: 900;
       family: "Orbitron", cursive;
     }
-    // border: 2px solid orange;
   }
   img#cat {
     width: 3em;
@@ -411,6 +407,7 @@ div#ranking-outer-overlay {
     background: #FFFFFF;
     border-radius: 5px;
     padding: 1%;
+    padding-bottom: 3%;
     font-family: "Open Sans", sans-serif;
     div.ranking-title-div {
       background-color: $mainOrangeColor;
@@ -498,7 +495,8 @@ div#ranking-outer-overlay {
         width: 75%;
         max-width: 75px;
       }
-      span.click-number {
+      span.overlay-rank-number,
+      span.game-time {
         position: absolute;
         top: 50%;
         left: 50%;
@@ -507,6 +505,8 @@ div#ranking-outer-overlay {
           size: .8em;
           family: cursive, sans-serif;
         }
+      }
+      span.overlay-rank-number {
         &.expert {
           color: $overlayBlueColor;
         }
@@ -517,7 +517,19 @@ div#ranking-outer-overlay {
           color: $overlayRedColor;
         }
       }
-    }
+      span.game-time {
+        &.expert {
+          color: #94DAF9;
+        }
+        &.novice {
+          color: #62E03A;
+        }
+        &.beginner {
+          color: #E7BFC2;
+          font-size: .5em;
+        }
+      }
+    } // Ends ranking-div
   } // Ends inner div
 }
 
@@ -610,6 +622,9 @@ MEDIA QUERY - LARGE > 1116px
 
 }
 
+/**********************************************
+MEDIA QUERY - SMALL < 500px
+**********************************************/
 @media (max-width: 499px) {
 
   div#ranking-outer-overlay div#ranking-inner-div {
@@ -633,6 +648,10 @@ MEDIA QUERY - LARGE > 1116px
 
   div#ranking-outer-overlay div#ranking-inner-div div.key-div div.icon-div {
     padding-left: 2%;
+  }
+
+  .github-fork-ribbon {
+    display: none;
   }
 
 }
