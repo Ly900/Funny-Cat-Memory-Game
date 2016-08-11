@@ -494,6 +494,9 @@ div#ranking-outer-overlay {
           width: 20%;
           max-width: 50px;
           padding: 0 2px;
+          transform: translate(-175px);
+          opacity: 0;
+          transition: .5s;
         }
         .ranking-name {
           text-transform: none;

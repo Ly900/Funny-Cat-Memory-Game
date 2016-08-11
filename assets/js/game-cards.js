@@ -489,12 +489,15 @@ $(window).bind("load", function(){
     var $rankingInfoLink = $("span.ranking-info"),
         $rankingOverlay = $("#ranking-outer-overlay"),
         $rankingOverlayInner = $("#ranking-inner-div"),
-        $rankHeading = $("span.rankings");
+        $rankHeading = $("span.rankings"),
+        $rankingStar = $("img.ranking-star");
+
 
     function openRankingDiv() {
       $rankingInfoLink.on("click", function(event){
         $rankingOverlay.show();
         $rankHeading.fadeIn(1000);
+        $($rankingStar).css({"transform": "translate(0)", "opacity": "1"});
       });
       closeRankingDiv();
     }
@@ -509,6 +512,7 @@ $(window).bind("load", function(){
         $(this).on("click", function(event){
           $rankingOverlay.hide();
           $rankHeading.hide();
+          $($rankingStar).css({"transform": "translate(-175px)", "opacity": "0"});
         });
       });
     }
