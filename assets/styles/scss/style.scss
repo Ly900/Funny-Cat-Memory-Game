@@ -28,6 +28,9 @@ $deepBlueColorHEX: #205E94;
 $mainOrangeColor: #f6a517;
 $lightOrange: #F8B848;
 $kashmirBlueColor: #5A7389;
+$overlayBlueColor: #1294FB;
+$overlayGreenColor: #2E9230;
+$overlayRedColor: #F21403;
 
 html, body, header, div, img, h1, ul, ol, li, {
   margin: 0;
@@ -300,6 +303,10 @@ img.star-icon,
 img#clock-icon {
   width: 2em;
 }
+
+.btn-default {
+  text-shadow: none;
+}
 /**********************************************
 GAME CARDS
 **********************************************/
@@ -401,7 +408,6 @@ div#ranking-outer-overlay {
     top: 10%;
     left: 10%;
     width: 80%;
-    height: 80%;
     background: #FFFFFF;
     border-radius: 5px;
     padding: 1%;
@@ -457,6 +463,7 @@ div#ranking-outer-overlay {
       @include prefix(align-items, center, webkit);
       .ranking-row {
         display: inline-block;
+        position: relative;
         width: 23.33%;
         color: darken($mainOrangeColor, 5%);
         text: {
@@ -467,12 +474,13 @@ div#ranking-outer-overlay {
           width: 30%;
         }
         .ranking-star {
-          max-width: 20%;
+          width: 20%;
+          max-width: 50px;
           padding: 0 2px;
         }
         .ranking-name {
           text-transform: none;
-          font-size: smaller;
+          font-size: .7em;
           padding: 5px;
           &.expert {
             color: #1294FB;
@@ -487,7 +495,27 @@ div#ranking-outer-overlay {
       }
       .rank-mouse-icon,
       .rank-clock-icon {
-        max-width: 35%;
+        width: 75%;
+        max-width: 75px;
+      }
+      span.click-number {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font: {
+          size: .8em;
+          family: cursive, sans-serif;
+        }
+        &.expert {
+          color: $overlayBlueColor;
+        }
+        &.novice {
+          color: $overlayGreenColor;
+        }
+        &.beginner {
+          color: $overlayRedColor;
+        }
       }
     }
   } // Ends inner div
