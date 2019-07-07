@@ -1,5 +1,3 @@
-# Funny-Cat-Memory-Game
-
 # [Funny-Cat-Memory-Game](https://ly900.github.io/funny-cat-memory-game/index.html)
 A funny cat matching and memory game.
 
